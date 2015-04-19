@@ -9,4 +9,4 @@ rshell: src/hw0-rshell.cpp
 
 #removes bin and executable rshell
 clean:
-	rm bin/rshell; rmdir bin
+	rm -r bin;
