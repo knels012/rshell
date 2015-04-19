@@ -39,13 +39,13 @@ void docommand(string com, int stat) {
 	//for (int i = 0; i < a; i++) {
 	//	cout << argv[i] << endl;
 	//}
-	//if (argv[0] == "exit")
-	//	exit(0);
+	if (strcmp(argv[0], "exit") == 0)
+		exit(0);
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		cout << "arg size:" << a << endl;
-		cout << "argv 0:" << argv[0] << endl;
+		//cout << "arg size:" << a << endl;
+		//cout << "argv 0:" << argv[0] << endl;
 		if (execvp(argv[0], argv) == -1) {
 			//this will only be reached if error in running command
 			stat = -1;
@@ -54,6 +54,7 @@ void docommand(string com, int stat) {
 	}
 	else {
 		wait(0);
+		//cout << "checking" << endl;
 	}
 }
 
@@ -75,9 +76,11 @@ int main() {
 			}
 			else if(input[i] == ';')
 				connectors += ";";
-			else if (input[i] == '&')
+			//breaks if & is the first inputed character
+			else if (input[i] == '&' && input[i - 1] == '&')
 				connectors += "&";
-			else if(input[i] == '|')
+			//breaks if | is the first inputed character
+			else if(input[i] == '|'&& input [i - 1] == '|')
 				connectors += "|";
 		}
 		char_separator<char> delim("&|;");
@@ -88,21 +91,21 @@ int main() {
 			docommand(cur_com, status);
 			//put connector code here
 			if (status == -1 && connectors[comnumb] == '&') {
-				cout << "& registered, previous command failed" << endl;
+				//cout << "& registered, previous command failed" << endl;
 				exit = true;
 			}
 			else if(status == 0 && connectors[comnumb] == '|') {
-				cout << "| registed, previous command worked." << endl;
+				//cout << "| registed, previous command worked." << endl;
 				exit = true;
 			}
 			comnumb++;
 		}
 		cout << endl;	
-		cout << "comments: " << comments << endl;
-		cout << "input: " << input << endl;
-		cout << "connectors: " << connectors << endl;
+		//cout << "comments: " << comments << endl;
+		//cout << "input: " << input << endl;
+		//cout << "connectors: " << connectors << endl;
 		comnumb = 0;
-		exit = true;
+		//exit = true;
 	}	
 	return 0;
 }
