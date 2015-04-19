@@ -3,65 +3,59 @@
 #include <boost/tokenizer.hpp>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdio.h>
+#include <string.h>
+#include <cstdlib>
+#include <sys/types.h>
+
 
 using namespace std;
 using namespace boost;
 
 
-int parseline(char com[], char* argv[]) {
-	char** next = argv;
-
-	char* token = strtok(com, " ");
-	while (token != NULL) {
-		*next++ = token;
-		token = strtok(NULL, " ");
+int parseline(string com, char* argv[]) {
+	//will hold size of argv[]
+	int s = 0;
+	string strtemp;
+	char_separator<char> ldelim(" 	");
+	tokenizer< char_separator<char> > ltok(com, ldelim);
+	for (tokenizer< char_separator<char> >::iterator it = ltok.begin(); it != ltok.end(); ++it) {
+		strtemp = *it;
+		char* temp = new char[strtemp.size() + 1];
+		strcpy(temp, strtemp.c_str());
+		argv[s] = temp;
+		s++;
 	}
-	*next = NULL;
-	return 0;
+	return s;
 }
 
-/*
-int parseline(char com[], char* const argv[]) {
-	/ *char *token;
-	*token = strtok(com, " ");
-	int i = 0;
-	while(token != NULL ) {
-		argv[i] = token;
-		*token = strtok(NULL, " ");
-		i++;
-	 }
-	
-	char_separator<char> linedelim(" 	");
-	tokenizer< char_separator<char> > linetok(com, linedelim);
-	int i = 0;
-	for (tokenizer< char_separator<char> >::iterator it = linetok.begin(); it != linetok.end(); ++it) {
-		argv[i] = (*it).c_str();
-		i++;
-	}
-	return i;
-}*/
-
-int docommand(char com[]) {
+int docommand(string com) {
 	//will actually process the commands
-	//int max_arg = com.size();
-	char* argv[100];
+	char* argv[100];// = new char[com.size()];
 	int a = parseline(com, argv);
-	for (int i = 0; i < a; i++) {
-		cout << argv[i] << endl;
-	} /*
-	//int ifork = fork();
+	argv[a] = NULL;
+	//cout << "===command here===" << endl;
+	//for (int i = 0; i < a; i++) {
+	//	cout << argv[i] << endl;
+	//}
+	//if (argv[0] == "exit")
+	//	exit(0);
+	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		//execvp(argv[0], argv);
+		cout << "arg size:" << a << endl;
+		cout << "argv 0:" << argv[0] << endl;
+		if (execvp(argv[0], argv) == -1)
+			perror("execvp");
 		//this will only be reached if error in running command
 	}
 	//if error occured
-	else if (ifork == -1) {
+	//else if (ifork == -1) {
 		//perror
-	}
+	//}
 	else {
-		//wait();
-	}*/
+		wait(0);
+	}
 	return 0;
 }
 
@@ -74,7 +68,7 @@ int main() {
 	while (!exit) {
 		cout << "$ ";
 		getline(cin,input);
-		cout << "input: " << input << endl;
+		//cout << "input: " << input << endl;
 		string connectors;
 		for (unsigned i = 0; i < input.size();i++) {
 			if (input[i] == '#') {
@@ -92,13 +86,13 @@ int main() {
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin(); it != mytok.end(); ++it) {
 			cur_com = *it;
-			char com[100] = cur_com.c_str();
+			//char com[100] = cur_com;
 			//if (!cur_com.empty())
 			//	status = 
-				docommand(com);
+				docommand(cur_com);
 			//put connector code here
 		}
-		
+		cout << endl;	
 		cout << "comments: " << comments << endl;
 		cout << "input: " << input << endl;
 		cout << "connectors: " << connectors << endl;
