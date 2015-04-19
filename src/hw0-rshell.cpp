@@ -29,10 +29,11 @@ int parseline(string com, char* argv[]) {
 	return s;
 }
 
-int docommand(string com) {
+void docommand(string com, int stat) {
 	//will actually process the commands
 	char* argv[100];// = new char[com.size()];
 	int a = parseline(com, argv);
+	stat = 0;
 	argv[a] = NULL;
 	//cout << "===command here===" << endl;
 	//for (int i = 0; i < a; i++) {
@@ -45,18 +46,15 @@ int docommand(string com) {
 	if (ifork == 0) {
 		cout << "arg size:" << a << endl;
 		cout << "argv 0:" << argv[0] << endl;
-		if (execvp(argv[0], argv) == -1)
+		if (execvp(argv[0], argv) == -1) {
+			//this will only be reached if error in running command
+			stat = -1;
 			perror("execvp");
-		//this will only be reached if error in running command
+		}
 	}
-	//if error occured
-	//else if (ifork == -1) {
-		//perror
-	//}
 	else {
 		wait(0);
 	}
-	return 0;
 }
 
 int main() {
@@ -64,7 +62,7 @@ int main() {
 	string input;
 	string cur_com;
 	string comments;
-	//int status = 0;
+	int status = 0, comnumb = 0;
 	while (!exit) {
 		cout << "$ ";
 		getline(cin,input);
@@ -84,18 +82,26 @@ int main() {
 		}
 		char_separator<char> delim("&|;");
 		tokenizer< char_separator<char> > mytok(input, delim);
-		for (tokenizer< char_separator<char> >::iterator it = mytok.begin(); it != mytok.end(); ++it) {
+		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
+				it != mytok.end() && !exit; ++it) {
 			cur_com = *it;
-			//char com[100] = cur_com;
-			//if (!cur_com.empty())
-			//	status = 
-				docommand(cur_com);
+			docommand(cur_com, status);
 			//put connector code here
+			if (status == -1 && connectors[comnumb] == '&') {
+				cout << "& registered, previous command failed" << endl;
+				exit = true;
+			}
+			else if(status == 0 && connectors[comnumb] == '|') {
+				cout << "| registed, previous command worked." << endl;
+				exit = true;
+			}
+			comnumb++;
 		}
 		cout << endl;	
 		cout << "comments: " << comments << endl;
 		cout << "input: " << input << endl;
 		cout << "connectors: " << connectors << endl;
+		comnumb = 0;
 		exit = true;
 	}	
 	return 0;
