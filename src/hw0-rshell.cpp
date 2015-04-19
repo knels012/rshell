@@ -53,7 +53,8 @@ void docommand(string com, int stat) {
 		}
 	}
 	else {
-		wait(0);
+		if(wait(0) == -1)
+			perror("wait");
 		//cout << "checking" << endl;
 	}
 }
@@ -63,9 +64,17 @@ int main() {
 	string input;
 	string cur_com;
 	string comments;
+	string user = getlogin();
+	//if(	
+	//	perror("getlogin");
+	//}
+	char mach[50];
+	gethostname(mach, 50);
+	//if (mach
 	int status = 0, comnumb = 0;
 	while (!exit) {
-		cout << "$ ";
+		//logname();
+		cout << user << "@" << mach << "$ ";
 		getline(cin,input);
 		//cout << "input: " << input << endl;
 		string connectors;
@@ -100,7 +109,6 @@ int main() {
 			}
 			comnumb++;
 		}
-		cout << endl;	
 		//cout << "comments: " << comments << endl;
 		//cout << "input: " << input << endl;
 		//cout << "connectors: " << connectors << endl;
