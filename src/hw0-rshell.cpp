@@ -113,7 +113,7 @@ int main() {
 		//cout << "input: " << input << endl;
 		//cout << "connectors: " << connectors << endl;
 		comnumb = 0;
-		//exit = true;
+		failed = false;
 	}	
 	return 0;
 }
