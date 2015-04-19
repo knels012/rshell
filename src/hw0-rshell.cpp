@@ -60,7 +60,7 @@ void docommand(string com, int stat) {
 }
 
 int main() {
-	bool exit = false;
+	bool failed = false;
 	string input;
 	string cur_com;
 	string comments;
@@ -72,7 +72,7 @@ int main() {
 	gethostname(mach, 50);
 	//if (mach
 	int status = 0, comnumb = 0;
-	while (!exit) {
+	while (1) {
 		//logname();
 		cout << user << "@" << mach << "$ ";
 		getline(cin,input);
@@ -95,17 +95,17 @@ int main() {
 		char_separator<char> delim("&|;");
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
-				it != mytok.end() && !exit; ++it) {
+				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
 			docommand(cur_com, status);
 			//put connector code here
 			if (status == -1 && connectors[comnumb] == '&') {
 				//cout << "& registered, previous command failed" << endl;
-				exit = true;
+				failed = true;
 			}
 			else if(status == 0 && connectors[comnumb] == '|') {
 				//cout << "| registed, previous command worked." << endl;
-				exit = true;
+				failed = true;
 			}
 			comnumb++;
 		}
