@@ -5,11 +5,8 @@ CFLAGS = -Wall -Werror -ansi -pedantic
 all: rshell
 
 rshell: src/hw0-rshell.cpp
-	$(CC) $(CFLAGS) src/hw0-rshell.cpp  -o rshell
-	mkdir bin
-	mv rshell bin
+	mkdir bin && $(CC) $(CFLAGS) src/hw0-rshell.cpp  -o rshell && mv rshell bin
 
 #removes bin and executable rshell
 clean:
-	rm bin/rshell
-	rmdir bin
+	rm bin/rshell && rmdir bin
