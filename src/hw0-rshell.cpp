@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <sys/types.h>
 #include <stdlib.h>
-//#include <errno.h>
+#include <pwd.h>
 
 
 using namespace std;
@@ -32,7 +32,7 @@ int parseline(string com, char* argv[]) {
 }
 	//for executing a single command
 void docommand(string com, int &status) {
-	char* argv[100];
+	char* argv[101];
 	int a = parseline(com, argv);
 	argv[a] = NULL;
 	if (strcmp(argv[0], "exit") == 0) {
@@ -44,18 +44,14 @@ void docommand(string com, int &status) {
 		status = execvp(argv[0], argv);
 		//this will only be reached if error in running command
 		if (status == -1) {
-			//status = -1;
-			//cout << "stat in fuct is " << status << endl;
 			perror("execvp");
 			exit(status);
 		}
 	}
 	else {
-		wait(&status);
-		//if(wait(&status) == -1)
-		//	perror("wait");
+		if(wait(&status) == -1)
+			perror("wait");
 	}
-	//cout << "stat out loop fuct is " << status << endl;
 }
 
 int main() {
@@ -63,12 +59,15 @@ int main() {
 	string input;
 	string cur_com;
 	//string comments;
-	string user = getlogin();
+	struct passwd *pws = getpwuid(geteuid());
+	if (!pws)
+		perror("getlogin");
 	char mach[50];
-	gethostname(mach, 50);
+	if (-1 == gethostname(mach, 50))
+		perror("gethostname");
 	int status = 0, comnumb = 0;
 	while (1) {
-		cout << user << "@" << mach << "$ ";
+		cout << pws->pw_name << "@" << mach << "$ ";
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
@@ -88,20 +87,17 @@ int main() {
 			else if(input[i] == '|'&& input [i - 1] == '|')
 				connectors += "|";
 		}
-		//cout << "connectors recognized: " << connectors << endl;
 		char_separator<char> delim("&|;");
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
 				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
 			docommand(cur_com, status);
-			//put connector code here
-			//cout << "stat is " << status << endl;
+			//connectors checked here
 			if (status != 0 && connectors[comnumb] == '&') {
 				failed = true;
 			}
 			else if(status == 0  && connectors[comnumb] == '|') {
-			//	cout << "registered || and a sucess" << endl;
 				failed = true;
 			}
 			comnumb++;
