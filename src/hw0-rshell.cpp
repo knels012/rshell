@@ -7,12 +7,14 @@
 #include <string.h>
 #include <cstdlib>
 #include <sys/types.h>
+#include <stdlib.h>
+//#include <errno.h>
 
 
 using namespace std;
 using namespace boost;
 
-
+	//for parsing a single command
 int parseline(string com, char* argv[]) {
 	//will hold size of argv[]
 	int s = 0;
@@ -28,59 +30,53 @@ int parseline(string com, char* argv[]) {
 	}
 	return s;
 }
-
-void docommand(string com, int stat) {
-	//will actually process the commands
-	char* argv[100];// = new char[com.size()];
+	//for executing a single command
+void docommand(string com, int &status) {
+	char* argv[100];
 	int a = parseline(com, argv);
-	stat = 0;
 	argv[a] = NULL;
-	//cout << "===command here===" << endl;
-	//for (int i = 0; i < a; i++) {
-	//	cout << argv[i] << endl;
-	//}
-	if (strcmp(argv[0], "exit") == 0)
+	if (strcmp(argv[0], "exit") == 0) {
 		exit(0);
+	}
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		//cout << "arg size:" << a << endl;
-		//cout << "argv 0:" << argv[0] << endl;
-		if (execvp(argv[0], argv) == -1) {
-			//this will only be reached if error in running command
-			stat = -1;
+		status = execvp(argv[0], argv);
+		//this will only be reached if error in running command
+		if (status == -1) {
+			//status = -1;
+			//cout << "stat in fuct is " << status << endl;
 			perror("execvp");
+			exit(status);
 		}
 	}
 	else {
-		if(wait(0) == -1)
-			perror("wait");
-		//cout << "checking" << endl;
+		wait(&status);
+		//if(wait(&status) == -1)
+		//	perror("wait");
 	}
+	//cout << "stat out loop fuct is " << status << endl;
 }
 
 int main() {
 	bool failed = false;
 	string input;
 	string cur_com;
-	string comments;
+	//string comments;
 	string user = getlogin();
-	//if(	
-	//	perror("getlogin");
-	//}
 	char mach[50];
 	gethostname(mach, 50);
-	//if (mach
 	int status = 0, comnumb = 0;
 	while (1) {
-		//logname();
 		cout << user << "@" << mach << "$ ";
 		getline(cin,input);
-		//cout << "input: " << input << endl;
-		string connectors;
-		for (unsigned i = 0; i < input.size();i++) {
+		string connectors = "";
+		unsigned i = 0;
+		if (input[0] == '&' || input[0] == '|') i++;
+		//registers all '#', ';', "&&", and "||", adding them to connectors string
+		for (; i < input.size();i++) {
 			if (input[i] == '#') {
-				comments = input.substr(i, input.size() -1);
+				//comments = input.substr(i, input.size() -1);
 				input = input.substr(0, i);
 			}
 			else if(input[i] == ';')
@@ -92,6 +88,7 @@ int main() {
 			else if(input[i] == '|'&& input [i - 1] == '|')
 				connectors += "|";
 		}
+		//cout << "connectors recognized: " << connectors << endl;
 		char_separator<char> delim("&|;");
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
@@ -99,19 +96,17 @@ int main() {
 			cur_com = *it;
 			docommand(cur_com, status);
 			//put connector code here
-			if (status == -1 && connectors[comnumb] == '&') {
-				//cout << "& registered, previous command failed" << endl;
+			//cout << "stat is " << status << endl;
+			if (status != 0 && connectors[comnumb] == '&') {
 				failed = true;
 			}
-			else if(status == 0 && connectors[comnumb] == '|') {
-				//cout << "| registed, previous command worked." << endl;
+			else if(status == 0  && connectors[comnumb] == '|') {
+			//	cout << "registered || and a sucess" << endl;
 				failed = true;
 			}
 			comnumb++;
+			status = 0;
 		}
-		//cout << "comments: " << comments << endl;
-		//cout << "input: " << input << endl;
-		//cout << "connectors: " << connectors << endl;
 		comnumb = 0;
 		failed = false;
 	}	

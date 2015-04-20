@@ -1,0 +1,186 @@
+Script started on Sun 19 Apr 2015 05:21:35 PM PDT
+~
+knels012@hammer $ cd CS100/HW0/rshell && bin/rshell
+knels012@hammer.cs.ucr.edu$ #showing exit works
+knels012@hammer.cs.ucr.edu$ exit
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ exit ls
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ ls; exit
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ #exit not at the beginning won't work
+knels012@hammer.cs.ucr.edu$ ls exit
+ls: cannot access exit: No such file or directory
+knels012@hammer.cs.ucr.edu$ #showing basic commands work
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+11940 pts/53   00:00:00 bash
+12212 pts/53   00:00:00 rshell
+12312 pts/53   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ #showing arguments work
+knels012@hammer.cs.ucr.edu$ echo hello world
+hello world
+knels012@hammer.cs.ucr.edu$ ls -la
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 17:15 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:15 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 17:15 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 14:58 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs   910 Apr 19 14:58 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:14 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ ls -a -a -a -l -a
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 17:15 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:15 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 17:15 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 14:58 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs   910 Apr 19 14:58 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:14 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ #showing incorrect input produces error messages
+knels012@hammer.cs.ucr.edu$ ls bejthbgrj
+ls: cannot access bejthbgrj: No such file or directory
+knels012@hammer.cs.ucr.edu$ ls vner vfherkbwfkjh fejhwrkbfjhe jherbfkjh fbhebrf fhberj fejhrb
+ls: cannot access vner: No such file or directory
+ls: cannot access vfherkbwfkjh: No such file or directory
+ls: cannot access fejhwrkbfjhe: No such file or directory
+ls: cannot access jherbfkjh: No such file or directory
+ls: cannot access fbhebrf: No such file or directory
+ls: cannot access fhberj: No such file or directory
+ls: cannot access fejhrb: No such file or directory
+knels012@hammer.cs.ucr.edu$ veblwjvbtjweb
+execvp: No such file or directory
+knels012@hammer.cs.ucr.edu$ #showing spaces and tabs have no effect
+knels012@hammer.cs.ucr.edu$ 	ps  
+  PID TTY          TIME CMD
+11940 pts/53   00:00:00 bash
+12212 pts/53   00:00:00 rshell
+12637 pts/53   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ ls   -l                        -a
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 17:15 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:15 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 17:15 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 14:58 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs   910 Apr 19 14:58 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 17:14 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ #showing connectors work
+knels012@hammer.cs.ucr.edu$ pwd; ls -a; echo testing
+/home/csmajs/knels012/CS100/HW0/rshell
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  tests
+testing
+knels012@hammer.cs.ucr.edu$ ./a.out || pwd && ls -l a
+execvp: No such file or directory
+/home/csmajs/knels012/CS100/HW0/rshell
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  tests
+knels012@hammer.cs.ucr.edu$ mkdir test || ls -a
+knels012@hammer.cs.ucr.edu$ ls
+bin  exec.script  LICENSE  Makefile  README.md	src  test  tests
+knels012@hammer.cs.ucr.edu$ rmdir testdir && echo DELETE
+rmdir: failed to remove `testdir': No such file or directory
+knels012@hammer.cs.ucr.edu$ ^[[A    rmdir testdir && echo DELETE^[[D^[[D^[[D                               && echo DELETE
+DELETE
+knels012@hammer.cs.ucr.edu$ ls
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+knels012@hammer.cs.ucr.edu$ #showing connectors with spacing work
+knels012@hammer.cs.ucr.edu$  git          status 		|| git    branch
+# On branch exec
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   src/hw0-rshell.cpp
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	bin/
+#	exec.script
+no changes added to commit (use "git add" and/or "git commit -a")
+knels012@hammer.cs.ucr.edu$ #showing rshell can run rshell
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+11940 pts/53   00:00:00 bash
+12212 pts/53   00:00:00 rshell
+13133 pts/53   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ bin/rshell
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+11940 pts/53   00:00:00 bash
+12212 pts/53   00:00:00 rshell
+13142 pts/53   00:00:00 rshell
+13150 pts/53   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ ls
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+knels012@hammer.cs.ucr.edu$ exit
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+11940 pts/53   00:00:00 bash
+12212 pts/53   00:00:00 rshell
+13188 pts/53   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ #showing rshell can run vim
+knels012@hammer.cs.ucr.edu$ vim README.md
+[?1000h7[?47h[?1h=[1;35r[m[H[2J[35;1H"README.md" 31L, 910C[>c[1;1H[33m  1 [m# Basic Command Shell
+[33m  2 [m===
+[33m  3 [mWhen run, command prompts are printed, and commands are read in from the user one line at a time and executed.
+[33m  4 [mCommands should be given like so
+[33m  5 [m```
+[33m  6 [mexecutable [ argumentList ] [ connector command ]
+[33m  7 [m```
+[33m  8 [mWhere connectors can be `;`, `&&`, or `||`.
+[33m  9 [mTo exit the program, the user types `exit` at the beginning of a command. Any single `&` or `|` will be ignored.
+[33m 10 [mAnything following a `#` is considered a comment, and thus will be ignored.
+[33m 11 
+ 12 [m## Installation
+[33m 13 [m---
+[33m 14 [m```
+[33m 15 [m$ git clone  https://github.com/yourusername/rshell.git
+[33m 16 [m$ cd rshell
+[33m 17 [m$ git checkout hw0
+[33m 18 [m$ make
+[33m 19 [m$ bin/rshell
+[33m 20 [m```
+[33m 21 
+ 22 
+ 23 [m##Bugs/Limitations/Issues
+[33m 24 [m---
+[33m 25 [m1. If the usr input has a `|` or a `&` at the beginning, it causes a segmentation fault and quits the program.
+[33m 26 [m2. If a command fails, and exit is inputed for the next command prompt, the line will be ignored.
+[33m 27 [m3. The program will only hold up to 99 arguments for every command.
+[33m 28 
+ 29 
+ 30 
+ 31 [m
+[1m[34m~                                                                                                                    [33;1H~                                                                                                                    [m[34;1H[1m[33m[44mREADME.md                                                                                          7,1            All]2;README.md (~/CS100/HW0/rshell) - VIM[7;5H[m[35;1H[K[35;1H:wq[?1000l"README.md" 31L, 910C written]2;Thanks for flying Vim
+[?1l>[2J[?47l8knels012@hammer.cs.ucr.edu$ #showing comments work after a command^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D^[[D                                        
+knels012@hammer.cs.ucr.edu$ ls # -a
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+knels012@hammer.cs.ucr.edu$ echo here # && echo I am not
+here
+knels012@hammer.cs.ucr.edu$ #show bugs, listed in README                            #showing bugs, listed in README
+knels012@hammer.cs.ucr.edu$ #showing bugs, listed in README                               #seg fault problems
+knels012@hammer.cs.ucr.edu$      	&& ls
+Segmentation fault
+~/CS100/HW0/rshell
+knels012@hammer $ exit[K[K[K[Kbin/rshell
+knels012@hammer.cs.ucr.edu$ exit
+~/CS100/HW0/rshell
+knels012@hammer $ exit
+exit
+
+Script done on Sun 19 Apr 2015 05:29:12 PM PDT
