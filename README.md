@@ -13,6 +13,7 @@ $ git checkout hw0
 $ make
 $ bin/rshell
 ```
+Running `make` creates the executable and places it into a created directory `bin`. Running `make clean` will delete the directory `bin` and everything in it.
 
 ## Details
 Once the program has be run, commands should be given like so
