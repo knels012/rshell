@@ -15,24 +15,6 @@ $ bin/rshell
 Running `make` creates the executable and places it into a created directory `bin`. Running `make clean` will delete the directory `bin` and everything in it.
 
 ## Details
-Once the program has be run, commands should be given like so
-```
-executable [ argumentList ] [ connector command ]
-```
-Where connectors can be `;`, `&&`, or `||`.
-The executable is an `executable` program in the `PATH`.
-To exit the program, the user types `exit` at the beginning of a command.
-When exit is found, anything following it will not execute.
-Any single `&` or `|` will be ignored.
-Anything following a `#` is considered a comment, and thus will be ignored.
-For connectors, if a command will not be executed due to the connector before it, all other commands after will also not execute.
-For example
-`true || ls && pwd`
-will only execute the first command (here `true`),
-but because it suceeded, and thus `ls` won't be executed,
-then `pwd` will also not be executed.
-
-## Details
 One the program has be run, commands should be given like so
 ```
 executable [ argumentList ] [ connector command ]
