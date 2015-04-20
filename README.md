@@ -32,8 +32,6 @@ true || ls && pwd
 will only execute the first command (here `true`), but because it suceeded, 
 and thus `ls` won't be executed, then `pwd` will also not be executed.
 
-## Bugs/Limitations/Issues
-
 ##Bugs/Limitations/Issues
 ---
 1. If the user input has only tabs or spaces before a `|` or a `&` at the beginning, before any commands, it causes a segmentation fault and quits the program.
