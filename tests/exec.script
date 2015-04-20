@@ -1,0 +1,139 @@
+Script started on Sun 19 Apr 2015 07:06:22 PM PDT
+~
+knels012@hammer $ cd CS100/HW0/rshell && bin/rshell
+knels012@hammer.cs.ucr.edu$ #showing exit works
+knels012@hammer.cs.ucr.edu$ exit
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ exit ls
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ ls; exit
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu$ #exit not at the beginning won't work
+knels012@hammer.cs.ucr.edu$ ls exit
+ls: cannot access exit: No such file or directory
+knels012@hammer.cs.ucr.edu$ #showing basic commands work
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+38437 pts/35   00:00:00 bash
+38549 pts/35   00:00:00 rshell
+38585 pts/35   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ #showing arguments work
+knels012@hammer.cs.ucr.edu$ echo hello world
+hello world
+knels012@hammer.cs.ucr.edu$ ls -la
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 19:00 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 19:00 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 19:00 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 18:41 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs  1562 Apr 19 18:01 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 18:40 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ ls -a -a -a -l -a
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 19:00 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 19:00 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 19:00 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 18:41 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs  1562 Apr 19 18:01 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 18:40 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ #showing invalid input produces error messages
+knels012@hammer.cs.ucr.edu$ ls bejthbgrj
+ls: cannot access bejthbgrj: No such file or directory
+knels012@hammer.cs.ucr.edu$ ls vner vfherkbwfkjh fejhwrkbfjhe jherbfkjh fbhebrf fhberj fejhrb
+ls: cannot access vner: No such file or directory
+ls: cannot access vfherkbwfkjh: No such file or directory
+ls: cannot access fejhwrkbfjhe: No such file or directory
+ls: cannot access jherbfkjh: No such file or directory
+ls: cannot access fbhebrf: No such file or directory
+ls: cannot access fhberj: No such file or directory
+ls: cannot access fejhrb: No such file or directory
+knels012@hammer.cs.ucr.edu$ veblwjvbtjweb
+execvp: No such file or directory
+knels012@hammer.cs.ucr.edu$ #showing spaces and tabs have no effect
+knels012@hammer.cs.ucr.edu$ 	ps  
+  PID TTY          TIME CMD
+38437 pts/35   00:00:00 bash
+38549 pts/35   00:00:00 rshell
+38657 pts/35   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ ls   -l                        -a
+total 52
+drwx------ 6 knels012 csmajs  4096 Apr 19 19:00 .
+drwx------ 3 knels012 csmajs  4096 Apr 18 10:24 ..
+drwx------ 2 knels012 csmajs  4096 Apr 19 19:00 bin
+-rw------- 1 knels012 csmajs     0 Apr 19 19:00 exec.script
+drwx------ 8 knels012 csmajs  4096 Apr 19 18:41 .git
+-rw------- 1 knels012 csmajs 18047 Apr 18 10:24 LICENSE
+-rw------- 1 knels012 csmajs   251 Apr 19 14:15 Makefile
+-rw------- 1 knels012 csmajs  1562 Apr 19 18:01 README.md
+drwx------ 2 knels012 csmajs  4096 Apr 19 18:40 src
+drwx------ 2 knels012 csmajs  4096 Apr 19 13:21 tests
+knels012@hammer.cs.ucr.edu$ #showing connectors work
+knels012@hammer.cs.ucr.edu$ pwd; ls -a; echo testing
+/home/csmajs/knels012/CS100/HW0/rshell
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  tests
+testing
+knels012@hammer.cs.ucr.edu$ ./a.out || pwd && ls -a
+execvp: No such file or directory
+/home/csmajs/knels012/CS100/HW0/rshell
+.  ..  bin  exec.script  .git  LICENSE	Makefile  README.md  src  tests
+knels012@hammer.cs.ucr.edu$ mkdir testdir || ls -a
+knels012@hammer.cs.ucr.edu$ ls && rmdir testdir && echo DELETE
+bin  exec.script  LICENSE  Makefile  README.md	src  testdir  tests
+DELETE
+knels012@hammer.cs.ucr.edu$ #showing connectors with spacing work
+knels012@hammer.cs.ucr.edu$  ls          bin 		|| git    branch
+rshell
+knels012@hammer.cs.ucr.edu$ pwd && exit
+/home/csmajs/knels012/CS100/HW0/rshell
+~/CS100/HW0/rshell
+knels012@hammer $ #showing rshell can run rshell
+~/CS100/HW0/rshell
+knels012@hammer $ ps[K[Kbin/rshell
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+38437 pts/35   00:00:00 bash
+38989 pts/35   00:00:00 rshell
+38998 pts/35   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ bin/rshell
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+38437 pts/35   00:00:00 bash
+38989 pts/35   00:00:00 rshell
+39026 pts/35   00:00:00 rshell
+39029 pts/35   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ 	pwd 	&&    exit
+/home/csmajs/knels012/CS100/HW0/rshell
+knels012@hammer.cs.ucr.edu$ ps
+  PID TTY          TIME CMD
+38437 pts/35   00:00:00 bash
+38989 pts/35   00:00:00 rshell
+39053 pts/35   00:00:00 ps
+knels012@hammer.cs.ucr.edu$ #showing rshell can run vim
+knels012@hammer.cs.ucr.edu$ vim vimtest
+[?1000h7[?47h[?1h=[1;35r[m[H[2J[35;1H"vimtest" [New File][>c[1;1H[33m  1 [m
+[1m[34m~                                                                                                                    [3;1H~                                                                                                                    [4;1H~                                                                                                                    [5;1H~                                                                                                                    [6;1H~                                                                                                                    [7;1H~                                                                                                                    [8;1H~                                                                                                                    [9;1H~                                                                                                                    [10;1H~                                                                                                                    [11;1H~                                                                                                                    [12;1H~                                                                                                                    [13;1H~                                                                                                                    [14;1H~                                                                                                                    [15;1H~                                                                                                                    [16;1H~                                                                                                                    [17;1H~                                                                                                                    [18;1H~                                                                                                                    [19;1H~                                                                                                                    [20;1H~                                                                                                                    [21;1H~                                                                                                                    [22;1H~                                                                                                                    [23;1H~                                                                                                                    [24;1H~                                                                                                                    [25;1H~                                                                                                                    [26;1H~                                                                                                                    [27;1H~                                                                                                                    [28;1H~                                                                                                                    [29;1H~                                                                                                                    [30;1H~                                                                                                                    [31;1H~                                                                                                                    [32;1H~                                                                                                                    [33;1H~                                                                                                                    [m[34;1H[1m[33m[44mvimtest                                                                                            0,0-1          All]2;vimtest (~/CS100/HW0/rshell) - VIM[1;5H[m[35;1H[K[35;1H:q[?1000l]2;Thanks for flying Vim[35;1H[K[35;1H[?1l>[2J[?47l8knels012@hammer.cs.ucr.edu$ #showing comments work after a command
+knels012@hammer.cs.ucr.edu$ ls # -a
+bin  exec.script  LICENSE  Makefile  README.md	src  tests
+knels012@hammer.cs.ucr.edu$ echo here # && echo I am not
+here
+knels012@hammer.cs.ucr.edu$ #showing bugs, listed in README
+knels012@hammer.cs.ucr.edu$ #seg fault problems
+knels012@hammer.cs.ucr.edu$      	&& ls
+Segmentation fault
+~/CS100/HW0/rshell
+knels012@hammer $ exit
+exit
+
+Script done on Sun 19 Apr 2015 07:12:15 PM PDT
