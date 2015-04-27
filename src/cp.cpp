@@ -141,12 +141,12 @@ int main(int argc, char *argv[])	{
 		exit(1);
 	}
 	if (argc == 4)	{
-		cout << "EXECUTING COPY USING C++\n";
-		cPPWrite(inputFile, outputFile);
 		cout << "EXECUTING COPY BY CHARACTER\n";
 		cpByCharacter(inputFile, outputFile);
 		cout << "EXECUTING COPY BY BUFFER\n";
 		cpByBuffer(inputFile, outputFile);
+		cout << "EXECUTING COPY USING C++\n";
+		cPPWrite(inputFile, outputFile);
 	}
 	else	{
 		cPPWrite(inputFile, outputFile);
