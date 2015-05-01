@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <string>
 #include <cstring>
+#include <grp.h>
 
 using namespace std;
 
@@ -61,9 +62,94 @@ int plainls(bool a) {
 	exit(0);
 }
 
+//gets all files in given file name, in a vector
+void getfiles(vector<string> &v, string &s, bool a) {
+R *dirp;
+        if(NULL == (dirp = opendir(s.c_str()))) {
+            perror("There was an error with opendir(). ");
+            exit(1);
+        }
+        struct dirent *filespecs;
+        errno = 0;
+        while(NULL != (filespecs = readdir(dirp))) {
+		if (a)
+			v.push_back(filespecs->d_name);
+		else {
+			char dot = filespecs->d_name[0];
+			if (dot != '.')
+				v.push_back(filespecs->d_name);
+		}
+        }
+        if(errno != 0) {
+            perror("There was an error with readdir(). ");
+            exit(1);
+        }
+        cout << endl;
+        if(-1 == closedir(dirp)) {
+            perror("There was an error with closedir(). ");
+            exit(1);
+        }
+	sort(v.begin(), v.end(), LessNoCase());
+}
+
+void printstat(struct stat &st, string s) {
+	//DIR d, CHR c, BLK b, LNK l, regular -
+	int temp = st.st_mode & S_IFMT; 
+	if (temp == S_IFREG) { cout << "-"; }
+	else if (temp == S_IFDIR) { cout << "d"; }
+	else if (temp == S_IFCHR) { cout << "c"; }
+	else if (temp == S_IFBLK) { cout << "b"; }
+	else if (temp == S_IFLNK) { cout << "l"; }
+	else cout << "?";
+	//for (int i = 0; i < 3; i++) {
+	(st.st_mode & S_IRUSR) ? (cout << "r"):(cout << "-");
+	(st.st_mode & S_IWUSR) ? (cout << "w"):(cout << "-");
+	(st.st_mode & S_IXUSR) ? (cout << "x"):(cout << "-");
+	(st.st_mode & S_IRGRP) ? (cout << "r"):(cout << "-");
+	(st.st_mode & S_IWGRP) ? (cout << "w"):(cout << "-");
+	(st.st_mode & S_IXGRP) ? (cout << "x"):(cout << "-");
+	(st.st_mode & S_IROTH) ? (cout << "r"):(cout << "-");
+	(st.st_mode & S_IWOTH) ? (cout << "w"):(cout << "-");
+	(st.st_mode & S_IXOTH) ? (cout << "x"):(cout << "-");
+	cout << "	";
+	struct passwd *pws = getpwuid(st.st_uid);
+	struct group *getgrgid(st.st_gid);
+	if (!pws)
+		perror("error getpwuid");
+	cout << pws->pw_name;
+	cout << "	" << (st.st_blocks * 512) << "	";
+	//convert to date
+	cout << st_atime;
+	cout << "	" 
+}
+
+//takes in file to get info on, prints all files needed
+int dashl(string s, bool a) {
+	int total = 0, temp;
+	vector<string> v;
+	getfiles(v, s, a);
+	vector<stat> vstat;
+
+	for (vector<string>::iterator it = v.begin(); it != v.end(); it++) {
+		struct stat st;
+		if (stat(s.c_str(), &st) == -1) {
+			perror("stat");
+			exit(1);
+		}
+		vstat.push_back(st);
+		total += st_blocks;
+	}
+	//cout << s << ":" << endl;
+	cout << "total " << total << endl;
+	for (vector<stat>::iterator it = vstat.begin(); it != vstat.end(); it++) {
+		//DIR d, CHR c, BLK b, LNK l, regular -
+		
+	}
+}
+
 //only l , and maybe 'a' flag also, passed in, but no R flag
 void lls(bool a) {
-
+	dashl(".", a);
 }
 
 //Recursive l flags
