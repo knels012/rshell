@@ -12,6 +12,8 @@
 #include <string>
 #include <cstring>
 #include <grp.h>
+#include <time.h>
+#include <pwd.h>
 
 using namespace std;
 
@@ -64,12 +66,13 @@ int plainls(bool a) {
 
 //gets all files in given file name, in a vector
 void getfiles(vector<string> &v, string &s, bool a) {
-R *dirp;
+	DIR *dirp;
         if(NULL == (dirp = opendir(s.c_str()))) {
             perror("There was an error with opendir(). ");
             exit(1);
         }
-        struct dirent *filespecs;
+
+	struct dirent *filespecs;
         errno = 0;
         while(NULL != (filespecs = readdir(dirp))) {
 		if (a)
@@ -84,7 +87,7 @@ R *dirp;
             perror("There was an error with readdir(). ");
             exit(1);
         }
-        cout << endl;
+        //cout << endl;
         if(-1 == closedir(dirp)) {
             perror("There was an error with closedir(). ");
             exit(1);
@@ -111,40 +114,58 @@ void printstat(struct stat &st, string s) {
 	(st.st_mode & S_IROTH) ? (cout << "r"):(cout << "-");
 	(st.st_mode & S_IWOTH) ? (cout << "w"):(cout << "-");
 	(st.st_mode & S_IXOTH) ? (cout << "x"):(cout << "-");
-	cout << "	";
+	cout << "  " << st.st_nlink << "  ";
 	struct passwd *pws = getpwuid(st.st_uid);
-	struct group *getgrgid(st.st_gid);
+	if (!pws) {
+		perror("error geting user");
+		exit(1);
+	}
+	struct group *gr = getgrgid(st.st_gid);
+	if (!gr) {
+		perror("error geting group");
+		exit(1);
+	}
 	if (!pws)
 		perror("error getpwuid");
-	cout << pws->pw_name;
-	cout << "	" << (st.st_blocks * 512) << "	";
+	cout << pws->pw_name << "  " << gr->gr_name;
+	if (temp == S_IFREG)
+		cout << "  " << st.st_size << "  ";
+	else
+		cout << "  " << (st.st_blocks * 512) << "  ";
 	//convert to date
-	cout << st_atime;
-	cout << "	" 
+	struct tm date;
+	localtime_r(&st.st_mtime, &date);
+	char buffer[16];
+	//13 char long
+	strftime(buffer, 16,"%b %e %R", &date);
+	cout << buffer << " " << s << endl; 
+	//cout << st_atime;
+	//cout << "	" << s << endl;
 }
 
-//takes in file to get info on, prints all files needed
-int dashl(string s, bool a) {
-	int total = 0, temp;
+//takes in file s, gets all files contained in it, prints them out
+void dashl(string s, bool a) {
+	int total = 0;
 	vector<string> v;
 	getfiles(v, s, a);
-	vector<stat> vstat;
-
+	vector<struct stat> vstat;
+	
 	for (vector<string>::iterator it = v.begin(); it != v.end(); it++) {
 		struct stat st;
-		if (stat(s.c_str(), &st) == -1) {
+		if (stat((s + "/" + *it).c_str(), &st) == -1) {
 			perror("stat");
 			exit(1);
 		}
 		vstat.push_back(st);
-		total += st_blocks;
+		total += st.st_blocks;
 	}
 	//cout << s << ":" << endl;
-	cout << "total " << total << endl;
-	for (vector<stat>::iterator it = vstat.begin(); it != vstat.end(); it++) {
+	cout << "total " << (total/2)  << endl;
+	for (unsigned i = 0; i < v.size() && i < vstat.size(); i++) {
 		//DIR d, CHR c, BLK b, LNK l, regular -
-		
+		printstat(vstat.at(i), v.at(i));
 	}
+	exit(0);
 }
 
 //only l , and maybe 'a' flag also, passed in, but no R flag
@@ -159,7 +180,27 @@ void lRls(vector<string> &files, vector<string> &dir, bool a) {
 
 //files and directories without recursion
 void lfilels(vector<string> &files, vector<string> &dir, bool a) {
+	vector<struct stat> vstat;
+	for (vector<string>::iterator it = files.begin(); it != files.end(); it++) {
+		//dashl(*it, a);
+		struct stat st;
+			if (stat((*it).c_str(), &st) == -1) {
+				perror("stat");
+				exit(1);
+			}
+		vstat.push_back(st);
+	}
+	for (unsigned i = 0; i < files.size() && i < vstat.size(); i++) {
+		printstat(vstat.at(i), files.at(i));
+	}
 
+	for (vector<string>::iterator it = dir.begin(); it != dir.end(); it++) {
+		if (!files.empty()) {
+			cout << endl;
+			cout << *it << ":" << endl;
+		}
+		dashl(*it, a);
+	}
 }
 
 //no L flag, but recursive flag, no specific files
