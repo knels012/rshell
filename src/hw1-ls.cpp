@@ -24,6 +24,7 @@ struct LessNoCase {
 	}
 };
 
+//for ls without any arguments passed in
 int plainls(bool a) {
 	vector<string> v;
 	DIR *dirp;
@@ -40,7 +41,7 @@ int plainls(bool a) {
 			char dot = filespecs->d_name[0];
 			if (dot != '.')
 				v.push_back(filespecs->d_name);
-		}	//cout << filespecs->d_name << " ";
+		}
         }
         if(errno != 0)
         {
@@ -57,7 +58,6 @@ int plainls(bool a) {
 		cout << *it;
 		if (it + 1 != v.end())
 			cout  << "  ";
-		//add formating here
 	}
 	if (!v.empty())
 		cout << endl;
@@ -105,7 +105,6 @@ void printstat(struct stat &st, string s) {
 	else if (temp == S_IFBLK) { cout << "b"; }
 	else if (temp == S_IFLNK) { cout << "l"; }
 	else cout << "?";
-	//for (int i = 0; i < 3; i++) {
 	(st.st_mode & S_IRUSR) ? (cout << "r"):(cout << "-");
 	(st.st_mode & S_IWUSR) ? (cout << "w"):(cout << "-");
 	(st.st_mode & S_IXUSR) ? (cout << "x"):(cout << "-");
@@ -118,12 +117,12 @@ void printstat(struct stat &st, string s) {
 	cout << "  " << st.st_nlink << "  ";
 	struct passwd *pws = getpwuid(st.st_uid);
 	if (!pws) {
-		perror("error geting user");
+		perror("error getting user");
 		exit(1);
 	}
 	struct group *gr = getgrgid(st.st_gid);
 	if (!gr) {
-		perror("error geting group");
+		perror("error getting group");
 		exit(1);
 	}
 	if (!pws)
@@ -135,13 +134,17 @@ void printstat(struct stat &st, string s) {
 		cout << "  " << (st.st_blocks * 512) << "  ";
 	//convert to date
 	struct tm date;
-	localtime_r(&st.st_mtime, &date);
+	if (localtime_r(&st.st_mtime, &date) == 0) {
+		perror("error getting time");
+	}
 	char buffer[16];
-	//13 char long
-	strftime(buffer, 16,"%b %e %R", &date);
+	if (strftime(buffer, 16,"%b %e %R", &date) == 0) {
+		//return value 0 does not necessarily indicate an error
+		//thus why perror is not used, though there is error checking
+		fprintf(stderr, "strftime returned 0");
+		exit(0);
+	}
 	cout << buffer << " " << s << endl; 
-	//cout << st_atime;
-	//cout << "	" << s << endl;
 }
 
 //takes in file s, gets all files contained in it, prints them out
@@ -160,7 +163,6 @@ void dashl(string s, bool a) {
 		vstat.push_back(st);
 		total += st.st_blocks;
 	}
-	//cout << s << ":" << endl;
 	cout << "total " << (total/2)  << endl;
 	for (unsigned i = 0; i < v.size() && i < vstat.size(); i++) {
 		//DIR d, CHR c, BLK b, LNK l, regular -
@@ -221,12 +223,7 @@ void lRls(vector<string> &v, vector<string> &dir, bool a) {
 		if (stat((*it).c_str(), &st) == -1) {
 			perror("stat");
 			exit(1);
-		} /*
-		if (st.st_mode & S_IFMT == S_IFDIR) {
-			if ((*it) != "." &&  (*it) != "..") {
-				dir.push_back(*it);
-			}
-		}*/
+		}
 		vstat.push_back(st);
 	}
 	for (unsigned i = 0; i <  v.size() && i <  vstat.size(); i++) {
@@ -245,7 +242,6 @@ void lRls(vector<string> &v, vector<string> &dir, bool a) {
 void lfilels(vector<string> &files, vector<string> &dir, bool a) {
 	vector<struct stat> vstat;
 	for (vector<string>::iterator it = files.begin(); it != files.end(); it++) {
-		//dashl(*it, a);
 		struct stat st;
 			if (stat((*it).c_str(), &st) == -1) {
 				perror("stat");
@@ -338,15 +334,6 @@ void Rls(bool a) {
 
 //no L flag, but recursive flag on specific files
 void Rfiles(vector<string> &v, vector<string> &dir, bool a) {
-	/*if (a) {
-		for (unsigned i = 0; i != dir.end(); i++) {
-			if(v[i] == "." || v[i] == "..") {
-				v.push_back(v[i]);	
-				dir.erase(dir.begin() + i);
-			}	
-		}
-		sort(v.begin(), v.end(), LessNoCase());
-	} */
 	sort(v.begin(), v.end(), LessNoCase());
 	sort(dir.begin(), dir.end(), LessNoCase());
 	for (unsigned i = 0; i < v.size(); i++) {
@@ -359,11 +346,6 @@ void Rfiles(vector<string> &v, vector<string> &dir, bool a) {
 	if (!dir.empty())
 		cout << endl;
 	for (unsigned i = 0; i < dir.size(); i++) {
-		/*if ((dir.at(i)).at((dir.at(i)).length() - 1) == '.') {
-			dir.erase(dir.begin() + i);
-			if (i >= dir.size())
-				continue;
-		}*/		
 		RecurRls(dir.at(i), a);
 		if (i + 1 < dir.size())
 			cout << endl;
@@ -430,7 +412,6 @@ int main(int argc, char* argv[]) {
 	bool l = false;
 	bool a = false;
 	bool R = false;
-	//bool files = false;
 	vector<string> files;
 	vector<string> dir;
 	string curr;
