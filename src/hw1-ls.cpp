@@ -174,9 +174,71 @@ void lls(bool a) {
 	dashl(".", a);
 }
 
-//Recursive l flags
-void lRls(vector<string> &files, vector<string> &dir, bool a) {
+void recurrdashl(string s, bool a) {
+	int total = 0;
+	vector<string> v;
+	vector<string> dir;
+	getfiles(v, s, a);
+	vector<struct stat> vstat;
+	for (vector<string>::iterator it = v.begin(); it != v.end(); it++) {
+		struct stat st;
+		if (lstat((s + "/" + *it).c_str(), &st) == -1) {
+			perror("stat");
+			exit(1);
+		}
+		if ((st.st_mode & S_IFMT) == S_IFDIR) {
+			if ((*it) != "." &&  (*it) != "..")
+				dir.push_back(s + "/" + *it);
+		}
+		vstat.push_back(st);
+		total += st.st_blocks;
+	}
+	cout << s << ":" << endl;
+	cout << "total " << (total/2)  << endl;
+	for (unsigned i = 0; i < v.size() && i < vstat.size(); i++) {
+		printstat(vstat.at(i), v.at(i));
+	}
+	if (!dir.empty()) {
+		cout << endl;
+	}
+	for (unsigned i = 0; i < dir.size() && i < dir.size(); i++) {
+		recurrdashl(dir[i], a);
+		if (i + 1 < dir.size())
+			cout  <<  endl;
+	}
+}
 
+//no files, but both -R and -l flags passed in
+void lRnofilesls(bool a) {
+	recurrdashl(".", a);
+}
+
+//Recursive l flags, with files passed in
+void lRls(vector<string> &v, vector<string> &dir, bool a) {
+	vector<struct stat> vstat;
+	for (vector<string>::iterator it = v.begin(); it != v.end(); it++) {
+		struct stat st;
+		if (stat((*it).c_str(), &st) == -1) {
+			perror("stat");
+			exit(1);
+		} /*
+		if (st.st_mode & S_IFMT == S_IFDIR) {
+			if ((*it) != "." &&  (*it) != "..") {
+				dir.push_back(*it);
+			}
+		}*/
+		vstat.push_back(st);
+	}
+	for (unsigned i = 0; i <  v.size() && i <  vstat.size(); i++) {
+		printstat(vstat.at(i), v.at(i));
+	}
+	if (!dir.empty())
+		cout << endl;
+	for (unsigned i = 0; i < dir.size(); i++) {
+		recurrdashl(dir[i], a);
+		if (i + 1 < dir.size())
+			cout << endl;
+	}
 }
 
 //files and directories without recursion
@@ -410,6 +472,8 @@ int main(int argc, char* argv[]) {
 		//if this is true, then only l , and maybe 'a' flag also, passed in
 		if (files.empty() && dir.empty() && !R)
 			lls(a);
+		else if (files.empty() && dir.empty() && R)
+			lRnofilesls(a);
 		//recurrsive call on files
 		else if (R)
 			lRls(files, dir, a);
