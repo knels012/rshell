@@ -95,6 +95,7 @@ void getfiles(vector<string> &v, string &s, bool a) {
 	sort(v.begin(), v.end(), LessNoCase());
 }
 
+//prints out a single file in -l format, uses stat and name of file
 void printstat(struct stat &st, string s) {
 	//DIR d, CHR c, BLK b, LNK l, regular -
 	int temp = st.st_mode & S_IFMT; 
@@ -203,21 +204,114 @@ void lfilels(vector<string> &files, vector<string> &dir, bool a) {
 	}
 }
 
+//takes in file (string s), fills 2 vectors with the directories and non-directories
+void getdiroth(vector<string> &files, vector<string> &dir, string s, bool a) {
+	vector<string> v;
+	getfiles(v, s, a);
+	for (unsigned i = 0; i < v.size(); i++) {
+		struct stat st;
+		int err = lstat((s + "/" + v[i]).c_str(), &st);
+		if (err == -1) {
+			perror("error with lstat.");
+			exit(1);
+		}
+		if (S_ISDIR(st.st_mode)) {
+			if(v[i] == "." || v[i] == "..")
+				files.push_back(v.at(i));
+			else
+				dir.push_back(v.at(i));
+		}
+		else
+			files.push_back(v.at(i));
+	}	
+}
+
+//recursive ls without -l flag
+void RecurRls(string s, bool a) {
+	cout << s << ":" << endl;
+	vector<string> v;
+	vector<string> dir;
+	getdiroth(v, dir, s, a);
+	v.insert(v.end(), dir.begin(), dir.end());
+	sort(v.begin(), v.end(), LessNoCase()); 
+	for (unsigned i = 0; i < v.size(); i++) {
+		cout << v.at(i);
+		if (i + 1 < v.size())
+			cout << "  ";
+	}
+	if (!v.empty()) 
+		cout << endl;
+	if (!dir.empty())
+		cout << endl;
+	for (unsigned i = 0; i < dir.size(); i++) {
+		RecurRls(s + "/" + dir.at(i), a);
+		if (i + 1 < dir.size())
+			cout << endl;
+	}
+}
+
 //no L flag, but recursive flag, no specific files
 void Rls(bool a) {
-
+	cout << ".:" << endl;
+	vector<string> v;
+	vector<string> dir;
+	getdiroth(v, dir, ".", a);
+	v.insert(v.end(), dir.begin(), dir.end());
+	sort(v.begin(), v.end(), LessNoCase());
+	for (unsigned i = 0; i < v.size(); i++) {
+		cout << v.at(i);
+		if (i + 1 < v.size())
+			cout << "  ";
+	}
+	if (!v.empty())
+		cout << endl;
+	if (!dir.empty())
+		cout << endl;
+	for (unsigned i = 0; i < dir.size(); i++) { 
+		RecurRls("./" + dir.at(i), a);
+		if (i + 1 < dir.size())
+			cout << endl;
+	}
 }
 
 //no L flag, but recursive flag on specific files
-void Rfiles(vector<string> &files, vector<string> &dir, bool a) {
-
+void Rfiles(vector<string> &v, vector<string> &dir, bool a) {
+	/*if (a) {
+		for (unsigned i = 0; i != dir.end(); i++) {
+			if(v[i] == "." || v[i] == "..") {
+				v.push_back(v[i]);	
+				dir.erase(dir.begin() + i);
+			}	
+		}
+		sort(v.begin(), v.end(), LessNoCase());
+	} */
+	sort(v.begin(), v.end(), LessNoCase());
+	sort(dir.begin(), dir.end(), LessNoCase());
+	for (unsigned i = 0; i < v.size(); i++) {
+		cout << v.at(i);
+		if (i + 1 < v.size())
+			cout << "  ";
+	}
+	if (!v.empty()) 
+		cout << endl;
+	if (!dir.empty())
+		cout << endl;
+	for (unsigned i = 0; i < dir.size(); i++) {
+		/*if ((dir.at(i)).at((dir.at(i)).length() - 1) == '.') {
+			dir.erase(dir.begin() + i);
+			if (i >= dir.size())
+				continue;
+		}*/		
+		RecurRls(dir.at(i), a);
+		if (i + 1 < dir.size())
+			cout << endl;
+	}
 }
 
 //no l or R flags, but specific files and dir
 void filels(vector<string> &files, vector<string> &dir, bool a) {
 	sort(files.begin(), files.end(), LessNoCase());
 	sort(dir.begin(), dir.end(), LessNoCase());
-	cout << "testing space" << endl;
 	for (vector<string>::iterator it = files.begin(); it != files.end(); it++) {
 		struct stat st;
 		if (stat((*it).c_str(), &st) == -1) {
@@ -293,10 +387,11 @@ int main(int argc, char* argv[]) {
 				else if (curr[j] == 'R')
 					R = true;
 				else
-					cout << j << " is a bad flag." << endl;
+					cout << curr[j] << " is a invalid flag." << endl;
 			}
 		}
 		else {
+			donewithdash = true;
 			struct stat st;
 			int err = lstat(argv[i], &st);
 			if (err == -1) {
