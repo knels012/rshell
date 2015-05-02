@@ -1,0 +1,1897 @@
+Script started on Fri 01 May 2015 11:22:06 PM PDT
+~
+knels012@hammer $ ls.script[K[K[K[K[K[K[K[K[Kcd CS100/HW0/rshell
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works without arguments
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls
+bin  LICENSE  ls.script  Makefile  README.md  src  tests
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works with -a
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -a
+.  ..  .git  bin  LICENSE  ls.script  Makefile  README.md  src  tests
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works with -l
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -l
+total 40
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  0  May  1 23:16 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works with -R
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -R
+.:
+bin  LICENSE  ls.script  Makefile  README.md  src  tests
+
+./bin:
+ls  rshell
+
+./src:
+hw0-rshell.cpp  hw1-ls.cpp
+
+./tests:
+exec.script  ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works with multiple parameters
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -l -R
+.:
+total 40
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  0  May  1 23:16 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+
+./bin:
+total 100
+-rwx------  1  knels012  csmajs  67506  May  1 23:15 ls
+-rwx------  1  knels012  csmajs  28310  May  1 23:15 rshell
+
+./src:
+total 16
+-rw-------  1  knels012  csmajs  2686  Apr 19 19:13 hw0-rshell.cpp
+-rw-------  1  knels012  csmajs  11780  May  1 22:43 hw1-ls.cpp
+
+./tests:
+total 84
+-rw-------  1  knels012  csmajs  10257  Apr 19 19:13 exec.script
+-rw-------  1  knels012  csmajs  67987  May  1 23:11 ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls parameters’ order doesn’t matter
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -Rl
+.:
+total 40
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  0  May  1 23:16 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+
+./bin:
+total 100
+-rwx------  1  knels012  csmajs  67506  May  1 23:15 ls
+-rwx------  1  knels012  csmajs  28310  May  1 23:15 rshell
+
+./src:
+total 16
+-rw-------  1  knels012  csmajs  2686  Apr 19 19:13 hw0-rshell.cpp
+-rw-------  1  knels012  csmajs  11780  May  1 22:43 hw1-ls.cpp
+
+./tests:
+total 84
+-rw-------  1  knels012  csmajs  10257  Apr 19 19:13 exec.script
+-rw-------  1  knels012  csmajs  67987  May  1 23:11 ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls works with all 3 types of parameters
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -alR
+.:
+total 52
+drwx------  6  knels012  csmajs  4096  May  1 23:16 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .git
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  0  May  1 23:16 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+
+./.git:
+total 48
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .
+lrwxrwxrwx  1  knels012  csmajs  0  Apr 19 17:26 .#MERGE_MSG
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 branches
+-rw-------  1  knels012  csmajs  35  May  1 22:45 COMMIT_EDITMSG
+-rw-------  1  knels012  csmajs  263  May  1 22:34 config
+-rw-------  1  knels012  csmajs  73  Apr 18 10:24 description
+-rw-------  1  knels012  csmajs  19  May  1 22:34 HEAD
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 hooks
+-rw-------  1  knels012  csmajs  576  May  1 22:44 index
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 logs
+drwx------  106  knels012  csmajs  4096  May  1 22:45 objects
+-rw-------  1  knels012  csmajs  41  Apr 19 19:13 ORIG_HEAD
+-rw-------  1  knels012  csmajs  107  Apr 18 10:24 packed-refs
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 refs
+
+./.git/branches:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+
+./.git/hooks:
+total 48
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rwx------  1  knels012  csmajs  452  Apr 18 10:24 applypatch-msg.sample
+-rwx------  1  knels012  csmajs  896  Apr 18 10:24 commit-msg.sample
+-rwx------  1  knels012  csmajs  189  Apr 18 10:24 post-update.sample
+-rwx------  1  knels012  csmajs  398  Apr 18 10:24 pre-applypatch.sample
+-rwx------  1  knels012  csmajs  1635  Apr 18 10:24 pre-commit.sample
+-rwx------  1  knels012  csmajs  1348  Apr 18 10:24 pre-push.sample
+-rwx------  1  knels012  csmajs  4951  Apr 18 10:24 pre-rebase.sample
+-rwx------  1  knels012  csmajs  1239  Apr 18 10:24 prepare-commit-msg.sample
+-rwx------  1  knels012  csmajs  3611  Apr 18 10:24 update.sample
+
+./.git/info:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  240  Apr 18 10:24 exclude
+
+./.git/logs:
+total 24
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  8662  May  1 22:45 HEAD
+drwx------  4  knels012  csmajs  4096  May  1 22:34 refs
+
+./.git/logs/refs:
+total 16
+drwx------  4  knels012  csmajs  4096  May  1 22:34 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  2  knels012  csmajs  4096  May  1 22:34 heads
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 remotes
+
+./.git/logs/refs/heads:
+total 28
+drwx------  2  knels012  csmajs  4096  May  1 22:34 .
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+-rw-------  1  knels012  csmajs  1818  Apr 19 12:46 doubpoint
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  1440  Apr 19 19:12 exec
+-rw-------  1  knels012  csmajs  359  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1493  May  1 22:34 ls2
+-rw-------  1  knels012  csmajs  1835  May  1 03:35 master
+
+./.git/logs/refs/remotes:
+total 12
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+drwx------  2  knels012  csmajs  4096  May  1 09:08 origin
+
+./.git/logs/refs/remotes/origin:
+total 20
+drwx------  2  knels012  csmajs  4096  May  1 09:08 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  196  Apr 18 10:24 HEAD
+-rw-------  1  knels012  csmajs  800  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1120  Apr 19 19:35 master
+
+./.git/objects:
+total 424
+drwx------  106  knels012  csmajs  4096  May  1 22:45 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 20:21 04
+drwx------  2  knels012  csmajs  4096  May  1 03:35 07
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 08
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 09
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 0a
+drwx------  2  knels012  csmajs  4096  May  1 20:20 0b
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 0f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 11
+drwx------  2  knels012  csmajs  4096  May  1 08:24 13
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 18
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 1a
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 1c
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 20
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 06:38 22
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 23
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 26
+drwx------  2  knels012  csmajs  4096  May  1 10:45 29
+drwx------  2  knels012  csmajs  4096  May  1 18:48 2a
+drwx------  2  knels012  csmajs  4096  May  1 06:38 2c
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 2d
+drwx------  2  knels012  csmajs  4096  May  1 15:46 2f
+drwx------  2  knels012  csmajs  4096  May  1 18:47 30
+drwx------  2  knels012  csmajs  4096  May  1 03:35 31
+drwx------  2  knels012  csmajs  4096  Apr 19 17:37 34
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 37
+drwx------  2  knels012  csmajs  4096  Apr 19 18:40 38
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 39
+drwx------  2  knels012  csmajs  4096  May  1 03:35 3a
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 3b
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 3d
+drwx------  2  knels012  csmajs  4096  Apr 19 18:01 45
+drwx------  2  knels012  csmajs  4096  May  1 15:46 46
+drwx------  2  knels012  csmajs  4096  May  1 20:21 49
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 4a
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 4f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 53
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 56
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 5b
+drwx------  2  knels012  csmajs  4096  Apr 19 13:18 5d
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 5e
+drwx------  2  knels012  csmajs  4096  May  1 03:35 60
+drwx------  2  knels012  csmajs  4096  May  1 18:48 64
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 66
+drwx------  2  knels012  csmajs  4096  Apr 18 11:17 69
+drwx------  2  knels012  csmajs  4096  Apr 18 18:17 6c
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 70
+drwx------  2  knels012  csmajs  4096  May  1 22:45 76
+drwx------  2  knels012  csmajs  4096  May  1 15:46 78
+drwx------  2  knels012  csmajs  4096  May  1 03:35 79
+drwx------  2  knels012  csmajs  4096  May  1 22:45 7a
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 7b
+drwx------  2  knels012  csmajs  4096  May  1 18:48 82
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 83
+drwx------  2  knels012  csmajs  4096  May  1 06:38 84
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 86
+drwx------  2  knels012  csmajs  4096  May  1 20:21 87
+drwx------  2  knels012  csmajs  4096  May  1 10:44 88
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 8c
+drwx------  2  knels012  csmajs  4096  Apr 19 02:03 8d
+drwx------  2  knels012  csmajs  4096  Apr 18 18:57 8e
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 90
+drwx------  2  knels012  csmajs  4096  May  1 22:44 93
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 96
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 97
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 9a
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 9c
+drwx------  2  knels012  csmajs  4096  May  1 20:20 a1
+drwx------  2  knels012  csmajs  4096  May  1 08:24 a5
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 a7
+drwx------  2  knels012  csmajs  4096  Apr 19 13:04 aa
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 ab
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 af
+drwx------  2  knels012  csmajs  4096  May  1 16:32 b3
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 b5
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 b9
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 bb
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 bc
+drwx------  2  knels012  csmajs  4096  May  1 08:23 bd
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 be
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 c1
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c3
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c5
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 ca
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 cd
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 ce
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 d1
+drwx------  2  knels012  csmajs  4096  May  1 22:45 d2
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 d3
+drwx------  2  knels012  csmajs  4096  Apr 19 19:13 db
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 e3
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 e5
+drwx------  2  knels012  csmajs  4096  May  1 10:45 e6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 e8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 ea
+drwx------  2  knels012  csmajs  4096  May  1 06:37 ec
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 f0
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 f3
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 f5
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 f6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 fa
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 fb
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 ff
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 pack
+
+./.git/objects/04:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  May  1 20:21 ed97da2eaf01f511b5b70e157dcba18d5d67cd
+
+./.git/objects/07:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  621  May  1 03:35 a2b8bf6ba904cadd40525554672b208454e77c
+
+./.git/objects/08:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  973  Apr 19 19:17 a425b7e1f452f02f984c2de1beff3fe022cc03
+-r--------  1  knels012  csmajs  794  Apr 19 14:39 fc3a2f9d51b158a2b0390fa58a3ee6688970ef
+
+./.git/objects/09:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 19 13:20 c59c690ffe873a7a795c9183cc3bd56937b257
+
+./.git/objects/0a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  187  Apr 19 13:05 f171a3f4b607688c1ec220e5dac200230ebd45
+
+./.git/objects/0b:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3275  May  1 20:20 8f72bcf831096c13ebfbb0673421b114752047
+
+./.git/objects/0f:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  219  Apr 19 19:19 a9031cd7cabaa8f56c452a27d703459796759b
+
+./.git/objects/11:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 18 16:24 f52af342843619883dfc5fb45753b83b5abd63
+
+./.git/objects/13:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 08:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 08:24 9a780b63bbc5286a6dd328b4fbad830d14473f
+
+./.git/objects/18:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  915  Apr 19 19:31 5a84d52c74b4c8624643bdfd6d3f2e4f3a1ae3
+
+./.git/objects/1a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  910  Apr 19 19:34 c964d9ca6c0e2978138286e329a78aa05bc807
+
+./.git/objects/1c:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 17:26 421f3d14db0c9239f5a73d9bfbcb107a582ce0
+
+./.git/objects/20:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  176  Apr 19 18:41 1f3b4ea0e39696c3b55589dfabcf4f96b9cd7c
+
+./.git/objects/22:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 06:38 26410abf7b413bccf235295e1b0153fc88ef1a
+
+./.git/objects/23:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  956  Apr 18 16:23 3512c95d677776085b6218ac228a28d3ef9e65
+
+./.git/objects/26:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 19 13:05 f58adbce0caf839b9ac48ab611390c965eec24
+
+./.git/objects/29:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 10:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 10:45 8934df9e092daeb236ee933f5e93a06ef7adfa
+
+./.git/objects/2a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:48 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 18:48 f89abc47efcc2074940598021d399b6aa2d865
+
+./.git/objects/2c:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 06:38 0b08a43e6c431d4d0c2755d106cff302a8c110
+
+./.git/objects/2d:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  52  Apr 18 10:24 47279f2e6e3e22080b6c75884ac7403bdb9318
+
+./.git/objects/2f:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 15:46 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  88  May  1 15:46 cebeaa978b092edbe987a9321925d4c75c4f47
+
+./.git/objects/30:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:47 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3023  May  1 18:47 2231c3072dd9beb087c27187ff0f43e9e4a1d5
+
+./.git/objects/31:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 03:35 5aed9532719e10d61c20c10ee9d84b3d8a0dff
+
+./.git/objects/34:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:37 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  343  Apr 19 17:37 500f707d2b3ac8ebf1e7accd786f4d0e98b6ba
+
+./.git/objects/37:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 19 02:04 32a86f7186c3cd527290d73cc4b4eb0a75ebf2
+
+./.git/objects/38:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:40 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1168  Apr 19 18:40 7d46750d453c69e04d60ae2e153814f302a675
+
+./.git/objects/39:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  180  Apr 18 18:58 6c57a5bad5a715b046195fe445fef3a6dec111
+
+./.git/objects/3a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  183  May  1 03:35 84ddd75b78e8a5926c3b0585f7562d01a08262
+
+./.git/objects/3b:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  59  Apr 19 13:05 4d7bbbd319be2d3f75e9437e888c7094d8f654
+
+./.git/objects/3d:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  843  Apr 19 14:56 767c9717ac4b6e996d013cfd793f5620279fdc
+
+./.git/objects/45:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:01 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  811  Apr 19 18:01 324efe3bb8f6360ba819f0a4a0cfcbfdaa8085
+
+./.git/objects/46:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 15:46 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 15:46 a237474279ec032404eb66ea3e8ba4db333e02
+
+./.git/objects/49:
+total 20
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  190  May  1 20:21 6d0ea984dfb31f61cee2e2c28aafa03a92bde5
+-r--------  1  knels012  csmajs  473  Apr 18 11:48 76fb683a92906200c5a4011826791ebd1f1e07
+-r--------  1  knels012  csmajs  190  May  1 10:45 8cd428fca7ef4e365f27b2003d955d8e979b2f
+
+./.git/objects/4a:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 18 11:51 2ed122c1d77eae5491ba4b4b4aa8500eef21ee
+
+./.git/objects/4f:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  Apr 19 19:31 c61b610d74c8e235e73d2627570ac571b03451
+
+./.git/objects/53:
+total 8
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 18 16:24 9cfddad1b01515878f289d5b309f037e10e6db
+
+./.git/objects/56:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+error getting group: Success
+drwx------  106  ~/CS100/HW0/rshell
+knels012@hammer $ #showing ls parameters’ order still doesn’t matter, even with all three
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -R -l -a
+.:
+total 52
+drwx------  6  knels012  csmajs  4096  May  1 23:16 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .git
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  0  May  1 23:16 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+
+./.git:
+total 48
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .
+lrwxrwxrwx  1  knels012  csmajs  0  Apr 19 17:26 .#MERGE_MSG
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 branches
+-rw-------  1  knels012  csmajs  35  May  1 22:45 COMMIT_EDITMSG
+-rw-------  1  knels012  csmajs  263  May  1 22:34 config
+-rw-------  1  knels012  csmajs  73  Apr 18 10:24 description
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  19  May  1 22:34 HEAD
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 hooks
+-rw-------  1  knels012  csmajs  576  May  1 22:44 index
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 logs
+drwx------  106  knels012  csmajs  4096  May  1 22:45 objects
+-rw-------  1  knels012  csmajs  41  Apr 19 19:13 ORIG_HEAD
+-rw-------  1  knels012  csmajs  107  Apr 18 10:24 packed-refs
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 refs
+
+./.git/branches:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+
+./.git/hooks:
+total 48
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rwx------  1  knels012  csmajs  452  Apr 18 10:24 applypatch-msg.sample
+-rwx------  1  knels012  csmajs  896  Apr 18 10:24 commit-msg.sample
+-rwx------  1  knels012  csmajs  189  Apr 18 10:24 post-update.sample
+-rwx------  1  knels012  csmajs  398  Apr 18 10:24 pre-applypatch.sample
+-rwx------  1  knels012  csmajs  1635  Apr 18 10:24 pre-commit.sample
+-rwx------  1  knels012  csmajs  1348  Apr 18 10:24 pre-push.sample
+-rwx------  1  knels012  csmajs  4951  Apr 18 10:24 pre-rebase.sample
+-rwx------  1  knels012  csmajs  1239  Apr 18 10:24 prepare-commit-msg.sample
+-rwx------  1  knels012  csmajs  3611  Apr 18 10:24 update.sample
+
+./.git/info:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  240  Apr 18 10:24 exclude
+
+./.git/logs:
+total 24
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  8662  May  1 22:45 HEAD
+drwx------  4  knels012  csmajs  4096  May  1 22:34 refs
+
+./.git/logs/refs:
+total 16
+drwx------  4  knels012  csmajs  4096  May  1 22:34 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  2  knels012  csmajs  4096  May  1 22:34 heads
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 remotes
+
+./.git/logs/refs/heads:
+total 28
+drwx------  2  knels012  csmajs  4096  May  1 22:34 .
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+-rw-------  1  knels012  csmajs  1818  Apr 19 12:46 doubpoint
+-rw-------  1  knels012  csmajs  1440  Apr 19 19:12 exec
+-rw-------  1  knels012  csmajs  359  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1493  May  1 22:34 ls2
+-rw-------  1  knels012  csmajs  1835  May  1 03:35 master
+
+./.git/logs/refs/remotes:
+total 12
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+drwx------  2  knels012  csmajs  4096  May  1 09:08 origin
+
+./.git/logs/refs/remotes/origin:
+total 20
+drwx------  2  knels012  csmajs  4096  May  1 09:08 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  196  Apr 18 10:24 HEAD
+-rw-------  1  knels012  csmajs  800  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1120  Apr 19 19:35 master
+
+./.git/objects:
+total 424
+drwx------  106  knels012  csmajs  4096  May  1 22:45 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+drwx------  2  knels012  csmajs  4096  May  1 20:21 04
+drwx------  2  knels012  csmajs  4096  May  1 03:35 07
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 08
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 09
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 0a
+drwx------  2  knels012  csmajs  4096  May  1 20:20 0b
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 0f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 11
+drwx------  2  knels012  csmajs  4096  May  1 08:24 13
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 18
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 1a
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 1c
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 20
+drwx------  2  knels012  csmajs  4096  May  1 06:38 22
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 23
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 26
+drwx------  2  knels012  csmajs  4096  May  1 10:45 29
+drwx------  2  knels012  csmajs  4096  May  1 18:48 2a
+drwx------  2  knels012  csmajs  4096  May  1 06:38 2c
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 2d
+drwx------  2  knels012  csmajs  4096  May  1 15:46 2f
+drwx------  2  knels012  csmajs  4096  May  1 18:47 30
+drwx------  2  knels012  csmajs  4096  May  1 03:35 31
+drwx------  2  knels012  csmajs  4096  Apr 19 17:37 34
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 37
+drwx------  2  knels012  csmajs  4096  Apr 19 18:40 38
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 39
+drwx------  2  knels012  csmajs  4096  May  1 03:35 3a
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 3b
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 3d
+drwx------  2  knels012  csmajs  4096  Apr 19 18:01 45
+drwx------  2  knels012  csmajs  4096  May  1 15:46 46
+drwx------  2  knels012  csmajs  4096  May  1 20:21 49
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 4a
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 4f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 53
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 56
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 5b
+drwx------  2  knels012  csmajs  4096  Apr 19 13:18 5d
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 5e
+drwx------  2  knels012  csmajs  4096  May  1 03:35 60
+drwx------  2  knels012  csmajs  4096  May  1 18:48 64
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 66
+drwx------  2  knels012  csmajs  4096  Apr 18 11:17 69
+drwx------  2  knels012  csmajs  4096  Apr 18 18:17 6c
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 70
+drwx------  2  knels012  csmajs  4096  May  1 22:45 76
+drwx------  2  knels012  csmajs  4096  May  1 15:46 78
+drwx------  2  knels012  csmajs  4096  May  1 03:35 79
+drwx------  2  knels012  csmajs  4096  May  1 22:45 7a
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 7b
+drwx------  2  knels012  csmajs  4096  May  1 18:48 82
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 83
+drwx------  2  knels012  csmajs  4096  May  1 06:38 84
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 86
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 20:21 87
+drwx------  2  knels012  csmajs  4096  May  1 10:44 88
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 8c
+drwx------  2  knels012  csmajs  4096  Apr 19 02:03 8d
+drwx------  2  knels012  csmajs  4096  Apr 18 18:57 8e
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 90
+drwx------  2  knels012  csmajs  4096  May  1 22:44 93
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 96
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 97
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 9a
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 9c
+drwx------  2  knels012  csmajs  4096  May  1 20:20 a1
+drwx------  2  knels012  csmajs  4096  May  1 08:24 a5
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 a7
+drwx------  2  knels012  csmajs  4096  Apr 19 13:04 aa
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 ab
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 af
+drwx------  2  knels012  csmajs  4096  May  1 16:32 b3
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 b5
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 b9
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 bb
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 bc
+drwx------  2  knels012  csmajs  4096  May  1 08:23 bd
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 be
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 c1
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c3
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c5
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 ca
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 cd
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 ce
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 d1
+drwx------  2  knels012  csmajs  4096  May  1 22:45 d2
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 d3
+drwx------  2  knels012  csmajs  4096  Apr 19 19:13 db
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 e3
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 e5
+drwx------  2  knels012  csmajs  4096  May  1 10:45 e6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 e8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 ea
+drwx------  2  knels012  csmajs  4096  May  1 06:37 ec
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 f0
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 f3
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 f5
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 f6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 fa
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 fb
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 ff
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 pack
+
+./.git/objects/04:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  May  1 20:21 ed97da2eaf01f511b5b70e157dcba18d5d67cd
+
+./.git/objects/07:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  621  May  1 03:35 a2b8bf6ba904cadd40525554672b208454e77c
+
+./.git/objects/08:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  973  Apr 19 19:17 a425b7e1f452f02f984c2de1beff3fe022cc03
+-r--------  1  knels012  csmajs  794  Apr 19 14:39 fc3a2f9d51b158a2b0390fa58a3ee6688970ef
+
+./.git/objects/09:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 19 13:20 c59c690ffe873a7a795c9183cc3bd56937b257
+
+./.git/objects/0a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  187  Apr 19 13:05 f171a3f4b607688c1ec220e5dac200230ebd45
+
+./.git/objects/0b:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3275  May  1 20:20 8f72bcf831096c13ebfbb0673421b114752047
+
+./.git/objects/0f:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  219  Apr 19 19:19 a9031cd7cabaa8f56c452a27d703459796759b
+
+./.git/objects/11:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 18 16:24 f52af342843619883dfc5fb45753b83b5abd63
+
+./.git/objects/13:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 08:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 08:24 9a780b63bbc5286a6dd328b4fbad830d14473f
+
+./.git/objects/18:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  915  Apr 19 19:31 5a84d52c74b4c8624643bdfd6d3f2e4f3a1ae3
+
+./.git/objects/1a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  910  Apr 19 19:34 c964d9ca6c0e2978138286e329a78aa05bc807
+
+./.git/objects/1c:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 17:26 421f3d14db0c9239f5a73d9bfbcb107a582ce0
+
+./.git/objects/20:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  176  Apr 19 18:41 1f3b4ea0e39696c3b55589dfabcf4f96b9cd7c
+
+./.git/objects/22:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 06:38 26410abf7b413bccf235295e1b0153fc88ef1a
+
+./.git/objects/23:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  956  Apr 18 16:23 3512c95d677776085b6218ac228a28d3ef9e65
+
+./.git/objects/26:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 19 13:05 f58adbce0caf839b9ac48ab611390c965eec24
+
+./.git/objects/29:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 10:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  210  May  1 10:45 8934df9e092daeb236ee933f5e93a06ef7adfa
+
+./.git/objects/2a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:48 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 18:48 f89abc47efcc2074940598021d399b6aa2d865
+
+./.git/objects/2c:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 06:38 0b08a43e6c431d4d0c2755d106cff302a8c110
+
+./.git/objects/2d:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  52  Apr 18 10:24 47279f2e6e3e22080b6c75884ac7403bdb9318
+
+./.git/objects/2f:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 15:46 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  88  May  1 15:46 cebeaa978b092edbe987a9321925d4c75c4f47
+
+./.git/objects/30:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:47 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3023  May  1 18:47 2231c3072dd9beb087c27187ff0f43e9e4a1d5
+
+./.git/objects/31:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 03:35 5aed9532719e10d61c20c10ee9d84b3d8a0dff
+
+./.git/objects/34:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:37 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  343  Apr 19 17:37 500f707d2b3ac8ebf1e7accd786f4d0e98b6ba
+
+./.git/objects/37:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 19 02:04 32a86f7186c3cd527290d73cc4b4eb0a75ebf2
+
+./.git/objects/38:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:40 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1168  Apr 19 18:40 7d46750d453c69e04d60ae2e153814f302a675
+
+./.git/objects/39:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  180  Apr 18 18:58 6c57a5bad5a715b046195fe445fef3a6dec111
+
+./.git/objects/3a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  183  May  1 03:35 84ddd75b78e8a5926c3b0585f7562d01a08262
+
+./.git/objects/3b:
+total 8
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  59  Apr 19 13:05 4d7bbbd319be2d3f75e9437e888c7094d8f654
+
+./.git/objects/3d:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  843  Apr 19 14:56 767c9717ac4b6e996d013cfd793f5620279fdc
+
+./.git/objects/45:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:01 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  811  Apr 19 18:01 324efe3bb8f6360ba819f0a4a0cfcbfdaa8085
+
+./.git/objects/46:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 15:46 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 15:46 a237474279ec032404eb66ea3e8ba4db333e02
+
+./.git/objects/49:
+total 20
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  190  May  1 20:21 6d0ea984dfb31f61cee2e2c28aafa03a92bde5
+-r--------  1  knels012  csmajs  473  Apr 18 11:48 76fb683a92906200c5a4011826791ebd1f1e07
+-r--------  1  knels012  csmajs  190  May  1 10:45 8cd428fca7ef4e365f27b2003d955d8e979b2f
+
+./.git/objects/4a:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 18 11:51 2ed122c1d77eae5491ba4b4b4aa8500eef21ee
+
+./.git/objects/4f:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  Apr 19 19:31 c61b610d74c8e235e73d2627570ac571b03451
+
+./.git/objects/53:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  58  Apr 18 16:24 9cfddad1b01515878f289d5b309f037e10e6db
+
+./.git/objects/56:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  185  Apr 18 11:51 b79c14eed4151d42016e185e86cff90e0cb718
+
+./.git/objects/5b:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  179  Apr 18 11:16 2ab5eb0c30096a8cf0c3b45ccc0aa1fff25434
+
+./.git/objects/5d:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 13:18 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1223  Apr 19 13:18 68590b5753f158d1566c5eed974757385efa56
+
+./.git/objects/5e:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  193  Apr 19 19:12 994f693f68fe74bd0ec11b535cc1be060012ca
+
+./.git/objects/60:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 03:35 8b8eda478d8f62b0a46c916ad7507369197b4a
+
+./.git/objects/64:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:48 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  189  May  1 18:48 055387f7b1431d857537b849227e3fb315e02b
+
+./.git/objects/66:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  Apr 19 19:12 e2af5199cb13f01f4e9ac134203f3fc0f64b75
+
+./.git/objects/69:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 11:17 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  115  Apr 18 11:17 e29f004ee943871fe3fb3034f412112062a397
+
+./.git/objects/6c:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 18:17 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1006  Apr 18 18:17 22b72ed0d17ca5cac213b71747ad2f053204cb
+
+./.git/objects/70:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  115  Apr 19 12:23 5129ff35a5ca7a111975600a1cca74f2f56487
+
+./.git/objects/76:
+total 16
+drwx------  2  knels012  csmajs  4096  May  1 22:45 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  181  Apr 19 14:40 466d7bcd642baf0e66a379fc0e882efa94fd88
+-r--------  1  knels012  csmajs  186  May  1 22:45 6e4fedb3ea31101a52f3896eeaedd69f9a84cf
+
+./.git/objects/78:
+total 16
+drwx------  2  knels012  csmajs  4096  May  1 15:46 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  147  Apr 19 14:40 d5d2bbc244a11718751c03ce3cf387729c4e4d
+-r--------  1  knels012  csmajs  187  May  1 15:46 e3fa9752619bfd6b91c545d219ca352947011f
+
+./.git/objects/79:
+total 16
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  212  May  1 03:35 20444b1ccef78c1d6978caa1f35e314f120b11
+-r--------  1  knels012  csmajs  115  Apr 18 18:18 c1f4e7392a5b4dccf8a2742e0f95c330cfa1c6
+
+./.git/objects/7a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 22:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 22:45 5882c31af7b1bd36444c63d5f6283e81da3da2
+
+./.git/objects/7b:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  520  Apr 19 14:14 70c14c3a4ff56a7291921baf950035f60a7144
+
+./.git/objects/82:
+total 16
+drwx------  2  knels012  csmajs  4096  May  1 18:48 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 13:04 99dc0d865680b975b9ae77303e0b619d8d07fa
+-r--------  1  knels012  csmajs  211  May  1 18:48 a30fddf56deb5a1bafcecfc4098f2ca59fca80
+
+./.git/objects/83:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1219  Apr 19 17:24 c599776db8cd3b9b9a9d9344d86947d19a9270
+
+./.git/objects/84:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  179  May  1 06:38 3882a9b3485d647e2970e25d754afc9fe53abe
+
+./.git/objects/86:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  147  Apr 19 14:56 3d899dd5c63d316b4a286b2d0822e29e7a5355
+
+./.git/objects/87:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 20:21 177d7822ffdfcecf8ecb65cafb84e5b96a6e4c
+
+./.git/objects/88:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 10:44 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  2187  May  1 10:44 2e85a9585b804e22a0cbe0dfa2f903ab83e017
+
+./.git/objects/8c:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  7713  Apr 18 10:24 db8451d9b90c1d4000c6f22eb86471a4568be6
+
+./.git/objects/8d:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 02:03 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1151  Apr 19 02:03 316f2fe469f1065f67aec67b8e6689344fc08c
+-r--------  1  knels012  csmajs  168  Apr 18 11:17 c072a94011c00a9333e5143663e8998fabb0f4
+
+./.git/objects/8e:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 18 18:57 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1086  Apr 18 18:57 6fa83eaae6f845d8f4df9df7d4e3bac176f788
+
+./.git/objects/90:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 18 18:58 1f1eff443de0698e57eaa33c5ab76c5bddc6ef
+
+./.git/objects/93:
+total 20
+drwx------  2  knels012  csmajs  4096  May  1 22:44 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3166  May  1 22:44 551b17ac931d8b36b6fb116618cb93b2641c7e
+-r--------  1  knels012  csmajs  187  May  1 08:24 bdb58e21fa5bc8062465745071146bfa8d623b
+-r--------  1  knels012  csmajs  2485  May  1 15:46 f59710a4c772f032bb199deba11474c1f57661
+
+./.git/objects/96:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  195  Apr 19 19:34 94db54e7443c6c630ad6ae3d3c5c291507ee1a
+
+./.git/objects/97:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  178  Apr 19 19:31 068821ab3d3a402f2ba88ac104ece9e7caa297
+
+./.git/objects/9a:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  59  Apr 18 18:18 08252a25bb57f137a5675ea5faeb5de999a4cf
+
+./.git/objects/9c:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  192  Apr 18 16:24 0481ee7d20c64010f17f9406dd4fdc6c4dd23c
+
+./.git/objects/a1:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:20 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  212  May  1 20:20 3655bfad7ecd4684009e3a53d25cf5892b26ef
+
+./.git/objects/a5:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 08:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 08:24 24156e5af02ac5d7c3dc251c09af21e83804aa
+
+./.git/objects/a7:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  59  Apr 19 17:26 51a3fb56a9e655ed9be5ff3acc712d108e126c
+
+./.git/objects/aa:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:04 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1226  Apr 19 13:04 440f03b5d118083adeb83aa5003b8f53f6334d
+
+./.git/objects/ab:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 18 11:51 5e5c04548d7b79380c19fa4da04ba559066c69
+
+./.git/objects/af:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 17:26 52823e3cb93439b148615518f831ae50395350
+
+./.git/objects/b3:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 16:32 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  2808  May  1 16:32 06634d2ac2369694ddfb06c797a8debc87cb6f
+
+./.git/objects/b5:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  107  Apr 18 11:16 745656f1d6f433f1bc5acb1d60d6682ccae0a3
+
+./.git/objects/b9:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  Apr 19 19:34 10b6bb8b5bb2fadb7b5f0d6504d14fa0701811
+
+./.git/objects/bb:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  2231  Apr 19 17:24 160c32bff64de4de8a50400b125d3feb2a1a21
+
+./.git/objects/bc:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  187  Apr 19 02:04 ab38d5fb19e8de10241e1adc06921c0716a5a2
+
+./.git/objects/bd:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 08:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1546  May  1 08:23 b1f5489324f45beb29b9c23c3c54da11547df4
+
+./.git/objects/be:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 14:14 a1afd78c8cd2aa3c69bf0b04f715b9749d8e59
+
+./.git/objects/c1:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  115  Apr 19 02:04 3da3a9e3cfe86013f0052a2dbe30bb981ec327
+
+./.git/objects/c3:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 19 12:24 d0264bd378999805a3c902fb5e22d8a226f588
+
+./.git/objects/c5:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  59  Apr 19 12:24 75d2087422c571c500ec7fe3015e5c2d39e336
+
+./.git/objects/ca:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  175  Apr 19 18:02 5c8d02ce4371615dc17d62c0422764dad53714
+
+./.git/objects/cd:
+total 16
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  171  Apr 19 12:23 01729ea637dcd31eccc7c54a3d09c442a01df4
+-r--------  1  knels012  csmajs  174  Apr 19 12:24 387468d2d5dc1425fa0f68ceeba62d1a7581b5
+
+./.git/objects/ce:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1515  Apr 19 19:11 f5fc15146549d4c24759496164affbf23d962e
+
+./.git/objects/d1:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  178  Apr 19 17:26 07daba9294a03be17f50bdc93ff482cce3b43d
+
+./.git/objects/d2:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 22:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  May  1 22:45 64bb8194f95d55a0c4cc1464929e92c720f09f
+
+./.git/objects/d3:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  188  Apr 19 14:56 832ef3911565b211991caf5680064905ff179c
+-r--------  1  knels012  csmajs  183  Apr 19 18:41 95ebdc87bad50bef45542d6c4b8400772678e5
+
+./.git/objects/db:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:13 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1063  Apr 19 19:13 ad62d5a8ed8de2571bbdfdabe712203cdf6de5
+
+./.git/objects/e3:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  59  Apr 18 18:58 17e9fa4a28565682de90e111c81d7ec84e6715
+
+./.git/objects/e5:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  183  Apr 19 12:23 2ba8e153014e1460eef0bb9be755a6e5af120c
+-r--------  1  knels012  csmajs  122  Apr 18 10:24 cc5cd9e93760de60e9039a89397e08d08cf84d
+
+./.git/objects/e6:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 10:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 10:45 f976370fd54e2601242827d05b542108c6d132
+
+./.git/objects/e8:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  183  Apr 19 18:02 92d0115fff4b0531ea3434efe2725738dd8198
+
+./.git/objects/ea:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  186  Apr 19 13:20 034960a9e73659cb45728e67cbf09ed23224ae
+
+./.git/objects/ec:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:37 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1578  May  1 06:37 b142f3c708408f99556d1abc3f73806333311c
+
+./.git/objects/f0:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  212  Apr 19 19:19 bd2e6e1fc4e73f4a473f3bff6e5e3d61694df5
+
+./.git/objects/f3:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 19 13:20 49392c88afa06ef4ae4505c796fa1e184a0e84
+-r--------  1  knels012  csmajs  880  Apr 19 19:11 c6f619deacaa727f7a8584a254234d76780d45
+
+./.git/objects/f5:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  179  Apr 18 18:18 13683922e7f619c6dd9081355b3b103166e972
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  59  Apr 18 11:17 7e0df8ebadc020e5e036dd27798ce35040ed93
+
+./.git/objects/f6:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  1224  Apr 19 12:23 92b920a9cf634cdaa8e24a152a8ce2b75a310a
+
+./.git/objects/fa:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  178  Apr 19 14:14 79cb9a92060b7a513daae6196761af4a9af897
+-r--------  1  knels012  csmajs  58  Apr 19 18:41 dab15b68120a1bf0b45735c0c6379fabb6bec8
+
+./.git/objects/fb:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  56  Apr 19 19:12 4f6d050704d4e541b8f420591ec621d9cc2402
+
+./.git/objects/ff:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  147  Apr 19 14:14 7ffddd690e4bb9a35833bb70f673171d6a1b18
+
+./.git/objects/info:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+
+./.git/objects/pack:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+
+./.git/refs:
+total 20
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+drwx------  2  knels012  csmajs  4096  May  1 22:45 heads
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 remotes
+drwx------  2  knels012  csmajs  4096  Apr 19 19:35 tags
+
+./.git/refs/heads:
+total 8
+drwx------  2  knels012  csmajs  4096  May  1 22:45 .
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  41  Apr 19 12:46 doubpoint
+-rw-------  1  knels012  csmajs  41  Apr 19 19:12 exec
+-rw-------  1  knels012  csmajs  41  May  1 22:45 ls
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  41  May  1 22:34 ls2
+-rw-------  1  knels012  csmajs  41  May  1 03:35 master
+
+./.git/refs/remotes:
+total 12
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  2  knels012  csmajs  4096  May  1 22:45 origin
+
+./.git/refs/remotes/origin:
+total 8
+drwx------  2  knels012  csmajs  4096  May  1 22:45 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  32  Apr 18 10:24 HEAD
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  41  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  41  Apr 19 19:35 master
+
+./.git/refs/tags:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 19:35 .
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  41  Apr 19 19:35 hw0
+
+./bin:
+total 108
+drwx------  2  knels012  csmajs  4096  May  1 23:15 .
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+-rwx------  1  knels012  csmajs  67506  May  1 23:15 ls
+-rwx------  1  knels012  csmajs  28310  May  1 23:15 rshell
+
+./src:
+total 24
+drwx------  2  knels012  csmajs  4096  May  1 22:43 .
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+-rw-------  1  knels012  csmajs  2686  Apr 19 19:13 hw0-rshell.cpp
+-rw-------  1  knels012  csmajs  11780  May  1 22:43 hw1-ls.cpp
+
+./tests:
+total 92
+drwx------  2  knels012  csmajs  4096  May  1 23:12 .
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+-rw-------  1  knels012  csmajs  10257  Apr 19 19:13 exec.script
+-rw-------  1  knels012  csmajs  67987  May  1 23:11 ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls has both error checking for faulty parameters and multiple 
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls has both error checking for faulty parameters and multiple [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cbin/ls -R -l -a[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcorrect ones[4h#[4l
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -aaaaa -bcl
+b is a invalid flag.
+c is a invalid flag.
+total 84
+drwx------  6  knels012  csmajs  4096  May  1 23:16 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .git
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  32768  May  1 23:18 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls accepts files
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls Makefile
+Makefile		~/CS100/HW0/rshell
+knels012@hammer $ #showing ls accepts directories
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls src
+
+src:
+hw0-rshell.cpp		hw1-ls.cpp
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls accepts multiple directories and files
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls README.md tests src
+README.md		
+
+src:
+hw0-rshell.cpp		hw1-ls.cpp
+
+
+tests:
+exec.script		ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls accepts multiple files along with arguments
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -a README.md
+README.md		~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -l Makefile tests
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+
+tests:
+total 84
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  10257  Apr 19 19:13 exec.script
+-rw-------  1  knels012  csmajs  67987  May  1 23:11 ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -R LICENSE  Makefile  README.md  src  tests
+LICENSE  Makefile  README.md
+
+src:
+hw0-rshell.cpp  hw1-ls.cpp
+
+tests:
+exec.script  ls.script
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls isn’t trapped in one directory
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls ../rshell
+
+../rshell:
+LICENSE		Makefile		src		README.md		tests		ls.script		bin
+~/CS100/HW0/rshell
+knels012@hammer $ #showing ls can still use it’s parameters
+~/CS100/HW0/rshell
+knels012@hammer $ bin/ls -a -lR ../rshell src
+
+../rshell:
+total 116
+drwx------  6  knels012  csmajs  4096  May  1 23:16 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .git
+drwx------  2  knels012  csmajs  4096  May  1 23:15 bin
+-rw-------  1  knels012  csmajs  18047  Apr 18 10:24 LICENSE
+-rw-------  1  knels012  csmajs  65536  May  1 23:18 ls.script
+-rw-------  1  knels012  csmajs  345  May  1 20:18 Makefile
+-rw-------  1  knels012  csmajs  1781  Apr 19 19:34 README.md
+drwx------  2  knels012  csmajs  4096  May  1 22:43 src
+drwx------  2  knels012  csmajs  4096  May  1 23:12 tests
+
+../rshell/.git:
+total 48
+drwx------  8  knels012  csmajs  4096  May  1 22:45 .
+lrwxrwxrwx  1  knels012  csmajs  0  Apr 19 17:26 .#MERGE_MSG
+drwx------  6  knels012  csmajs  4096  May  1 23:16 ..
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 branches
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-rw-------  1  knels012  csmajs  35  May  1 22:45 COMMIT_EDITMSG
+-rw-------  1  knels012  csmajs  263  May  1 22:34 config
+-rw-------  1  knels012  csmajs  73  Apr 18 10:24 description
+-rw-------  1  knels012  csmajs  19  May  1 22:34 HEAD
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 hooks
+-rw-------  1  knels012  csmajs  576  May  1 22:44 index
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 logs
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 objects
+-rw-------  1  knels012  csmajs  41  Apr 19 19:13 ORIG_HEAD
+-rw-------  1  knels012  csmajs  107  Apr 18 10:24 packed-refs
+drwx------  5  knels012  csmajs  4096  Apr 18 10:24 refs
+
+../rshell/.git/branches:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+
+../rshell/.git/hooks:
+total 48
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rwx------  1  knels012  csmajs  452  Apr 18 10:24 applypatch-msg.sample
+-rwx------  1  knels012  csmajs  896  Apr 18 10:24 commit-msg.sample
+-rwx------  1  knels012  csmajs  189  Apr 18 10:24 post-update.sample
+-rwx------  1  knels012  csmajs  398  Apr 18 10:24 pre-applypatch.sample
+-rwx------  1  knels012  csmajs  1635  Apr 18 10:24 pre-commit.sample
+-rwx------  1  knels012  csmajs  1348  Apr 18 10:24 pre-push.sample
+-rwx------  1  knels012  csmajs  4951  Apr 18 10:24 pre-rebase.sample
+-rwx------  1  knels012  csmajs  1239  Apr 18 10:24 prepare-commit-msg.sample
+-rwx------  1  knels012  csmajs  3611  Apr 18 10:24 update.sample
+
+../rshell/.git/info:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  240  Apr 18 10:24 exclude
+
+../rshell/.git/logs:
+total 24
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+-rw-------  1  knels012  csmajs  8662  May  1 22:45 HEAD
+drwx------  4  knels012  csmajs  4096  May  1 22:34 refs
+
+../rshell/.git/logs/refs:
+total 16
+drwx------  4  knels012  csmajs  4096  May  1 22:34 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+drwx------  2  knels012  csmajs  4096  May  1 22:34 heads
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 remotes
+
+../rshell/.git/logs/refs/heads:
+total 28
+drwx------  2  knels012  csmajs  4096  May  1 22:34 .
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+-rw-------  1  knels012  csmajs  1818  Apr 19 12:46 doubpoint
+-rw-------  1  knels012  csmajs  1440  Apr 19 19:12 exec
+-rw-------  1  knels012  csmajs  359  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1493  May  1 22:34 ls2
+-rw-------  1  knels012  csmajs  1835  May  1 03:35 master
+
+../rshell/.git/logs/refs/remotes:
+total 12
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 .
+drwx------  4  knels012  csmajs  4096  May  1 22:34 ..
+drwx------  2  knels012  csmajs  4096  May  1 09:08 origin
+
+../rshell/.git/logs/refs/remotes/origin:
+total 20
+drwx------  2  knels012  csmajs  4096  May  1 09:08 .
+drwx------  3  knels012  csmajs  4096  Apr 18 10:24 ..
+-rw-------  1  knels012  csmajs  196  Apr 18 10:24 HEAD
+-rw-------  1  knels012  csmajs  800  May  1 22:45 ls
+-rw-------  1  knels012  csmajs  1120  Apr 19 19:35 master
+
+../rshell/.git/objects:
+total 424
+drwx------  106  knels012  csmajs  4096  May  1 22:45 .
+drwx------  8  knels012  csmajs  4096  May  1 22:45 ..
+drwx------  2  knels012  csmajs  4096  May  1 20:21 04
+drwx------  2  knels012  csmajs  4096  May  1 03:35 07
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 08
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 09
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 0a
+drwx------  2  knels012  csmajs  4096  May  1 20:20 0b
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 0f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 11
+drwx------  2  knels012  csmajs  4096  May  1 08:24 13
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 18
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 1a
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 1c
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 20
+drwx------  2  knels012  csmajs  4096  May  1 06:38 22
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 23
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 26
+drwx------  2  knels012  csmajs  4096  May  1 10:45 29
+drwx------  2  knels012  csmajs  4096  May  1 18:48 2a
+drwx------  2  knels012  csmajs  4096  May  1 06:38 2c
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 2d
+drwx------  2  knels012  csmajs  4096  May  1 15:46 2f
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 18:47 30
+drwx------  2  knels012  csmajs  4096  May  1 03:35 31
+drwx------  2  knels012  csmajs  4096  Apr 19 17:37 34
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 37
+drwx------  2  knels012  csmajs  4096  Apr 19 18:40 38
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 39
+drwx------  2  knels012  csmajs  4096  May  1 03:35 3a
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 3b
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 3d
+drwx------  2  knels012  csmajs  4096  Apr 19 18:01 45
+drwx------  2  knels012  csmajs  4096  May  1 15:46 46
+drwx------  2  knels012  csmajs  4096  May  1 20:21 49
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 4a
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 4f
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 53
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 56
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 5b
+drwx------  2  knels012  csmajs  4096  Apr 19 13:18 5d
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 5e
+drwx------  2  knels012  csmajs  4096  May  1 03:35 60
+drwx------  2  knels012  csmajs  4096  May  1 18:48 64
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 66
+drwx------  2  knels012  csmajs  4096  Apr 18 11:17 69
+drwx------  2  knels012  csmajs  4096  Apr 18 18:17 6c
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 70
+drwx------  2  knels012  csmajs  4096  May  1 22:45 76
+drwx------  2  knels012  csmajs  4096  May  1 15:46 78
+drwx------  2  knels012  csmajs  4096  May  1 03:35 79
+drwx------  2  knels012  csmajs  4096  May  1 22:45 7a
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 7b
+drwx------  2  knels012  csmajs  4096  May  1 18:48 82
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 83
+drwx------  2  knels012  csmajs  4096  May  1 06:38 84
+drwx------  2  knels012  csmajs  4096  Apr 19 14:56 86
+drwx------  2  knels012  csmajs  4096  May  1 20:21 87
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  May  1 10:44 88
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 8c
+drwx------  2  knels012  csmajs  4096  Apr 19 02:03 8d
+drwx------  2  knels012  csmajs  4096  Apr 18 18:57 8e
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 90
+drwx------  2  knels012  csmajs  4096  May  1 22:44 93
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 96
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 97
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 9a
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 9c
+drwx------  2  knels012  csmajs  4096  May  1 20:20 a1
+drwx------  2  knels012  csmajs  4096  May  1 08:24 a5
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 a7
+drwx------  2  knels012  csmajs  4096  Apr 19 13:04 aa
+drwx------  2  knels012  csmajs  4096  Apr 18 11:51 ab
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 af
+drwx------  2  knels012  csmajs  4096  May  1 16:32 b3
+drwx------  2  knels012  csmajs  4096  Apr 18 11:16 b5
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 b9
+drwx------  2  knels012  csmajs  4096  Apr 19 17:24 bb
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 bc
+drwx------  2  knels012  csmajs  4096  May  1 08:23 bd
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 be
+drwx------  2  knels012  csmajs  4096  Apr 19 02:04 c1
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c3
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 c5
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 ca
+drwx------  2  knels012  csmajs  4096  Apr 19 12:24 cd
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 ce
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 d1
+drwx------  2  knels012  csmajs  4096  May  1 22:45 d2
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 d3
+drwx------  2  knels012  csmajs  4096  Apr 19 19:13 db
+drwx------  2  knels012  csmajs  4096  Apr 18 18:58 e3
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 e5
+drwx------  2  knels012  csmajs  4096  May  1 10:45 e6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:02 e8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 ea
+drwx------  2  knels012  csmajs  4096  May  1 06:37 ec
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 f0
+drwx------  2  knels012  csmajs  4096  Apr 19 19:11 f3
+drwx------  2  knels012  csmajs  4096  Apr 18 18:18 f5
+drwx------  2  knels012  csmajs  4096  Apr 19 12:23 f6
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 fa
+drwx------  2  knels012  csmajs  4096  Apr 19 19:12 fb
+drwx------  2  knels012  csmajs  4096  Apr 19 14:14 ff
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 info
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 pack
+
+../rshell/.git/objects/04:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:21 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  211  May  1 20:21 ed97da2eaf01f511b5b70e157dcba18d5d67cd
+
+../rshell/.git/objects/07:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 03:35 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  621  May  1 03:35 a2b8bf6ba904cadd40525554672b208454e77c
+
+../rshell/.git/objects/08:
+total 16
+drwx------  2  knels012  csmajs  4096  Apr 19 19:17 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  973  Apr 19 19:17 a425b7e1f452f02f984c2de1beff3fe022cc03
+-r--------  1  knels012  csmajs  794  Apr 19 14:39 fc3a2f9d51b158a2b0390fa58a3ee6688970ef
+
+../rshell/.git/objects/09:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 19 13:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  58  Apr 19 13:20 c59c690ffe873a7a795c9183cc3bd56937b257
+
+../rshell/.git/objects/0a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  187  Apr 19 13:05 f171a3f4b607688c1ec220e5dac200230ebd45
+
+../rshell/.git/objects/0b:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 20:20 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  3275  May  1 20:20 8f72bcf831096c13ebfbb0673421b114752047
+
+../rshell/.git/objects/0f:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:19 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  219  Apr 19 19:19 a9031cd7cabaa8f56c452a27d703459796759b
+
+../rshell/.git/objects/11:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 18 16:24 f52af342843619883dfc5fb45753b83b5abd63
+
+../rshell/.git/objects/13:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 08:24 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 08:24 9a780b63bbc5286a6dd328b4fbad830d14473f
+
+../rshell/.git/objects/18:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:31 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  915  Apr 19 19:31 5a84d52c74b4c8624643bdfd6d3f2e4f3a1ae3
+
+../rshell/.git/objects/1a:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 19:34 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  910  Apr 19 19:34 c964d9ca6c0e2978138286e329a78aa05bc807
+
+../rshell/.git/objects/1c:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 17:26 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  182  Apr 19 17:26 421f3d14db0c9239f5a73d9bfbcb107a582ce0
+
+../rshell/.git/objects/20:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 18:41 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  176  Apr 19 18:41 1f3b4ea0e39696c3b55589dfabcf4f96b9cd7c
+
+../rshell/.git/objects/22:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 06:38 26410abf7b413bccf235295e1b0153fc88ef1a
+
+../rshell/.git/objects/23:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 18 16:23 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  956  Apr 18 16:23 3512c95d677776085b6218ac228a28d3ef9e65
+
+../rshell/.git/objects/26:
+total 12
+drwx------  2  knels012  csmajs  4096  Apr 19 13:05 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  114  Apr 19 13:05 f58adbce0caf839b9ac48ab611390c965eec24
+
+../rshell/.git/objects/29:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 10:45 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  210  May  1 10:45 8934df9e092daeb236ee933f5e93a06ef7adfa
+
+../rshell/.git/objects/2a:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 18:48 .
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+-r--------  1  knels012  csmajs  87  May  1 18:48 f89abc47efcc2074940598021d399b6aa2d865
+
+../rshell/.git/objects/2c:
+total 12
+drwx------  2  knels012  csmajs  4096  May  1 06:38 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+drwx------  106  knels012  csmajs  4096  May  1 22:45 ..
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+-r--------  1  knels012  csmajs  210  May  1 06:38 0b08a43e6c431d4d0c2755d106cff302a8c110
+
+../rshell/.git/objects/2d:
+total 8
+drwx------  2  knels012  csmajs  4096  Apr 18 10:24 .
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
+error getting user: Success
+drwx------  106  ~/CS100/HW0/rshell
+knels012@hammer $ exit
+exit
+
+Script done on Fri 01 May 2015 11:25:51 PM PDT
