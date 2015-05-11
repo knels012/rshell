@@ -71,7 +71,7 @@ int main() {
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
-		if (input[0] == '&' || input[0] == '|') i++;
+		if (input[0] == '&' || input[0] == '|' || input[0] == '<') i++;
 		//registers all '#', ';', "&&", and "||", adding them to connectors string
 		for (; i < input.size();i++) {
 			if (input[i] == '#') {
@@ -80,24 +80,37 @@ int main() {
 			}
 			else if(input[i] == ';')
 				connectors += ";";
-			//breaks if & is the first inputed character
 			else if (input[i] == '&' && input[i - 1] == '&')
 				connectors += "&";
-			//breaks if | is the first inputed character
 			else if(input[i] == '|'&& input [i - 1] == '|')
+				connectors += "o";
+			else if(input[i - 1] == '|' && input[i] != '|')
 				connectors += "|";
+			//add checks for <, >, and >>
 		}
-		char_separator<char> delim("&|;");
+		char_separator<char> delim("&|;");//seperate for >, >>, and < also
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
 				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
+			//call fuct to do command w/ input redirecton, <, >>, >
+			//outfile/infile = *(it + 1)	
+				//if connectors[conumb] == 't' && it + 1 != mytok.end()
+					//dooutcommand(cur_command, outfile, status, 2)
+				//if connectors[conumb] == '>' && it + 1 != mytok.end()
+					//dooutcommand(cur_command, outfile, status, 1)
+				//if connectors[conumb] == '<' && it + 1 != mytok.end()
+					//doincommand(cur_command, infile, status)
+			//if |, loop till not |
+			//call fuct do command with pipes, pass in all connected piped comands
+				//dopipecommand(cur_commands, status, connectors, comnumb)
+			//else, just:
 			docommand(cur_com, status);
 			//connectors checked here
 			if (status != 0 && connectors[comnumb] == '&') {
 				failed = true;
 			}
-			else if(status == 0  && connectors[comnumb] == '|') {
+			else if(status == 0  && connectors[comnumb] == 'o') {
 				failed = true;
 			}
 			comnumb++;
