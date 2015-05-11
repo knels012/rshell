@@ -54,6 +54,29 @@ void docommand(string com, int &status) {
 	}
 }
 
+//for all I/O redirection commands, only for >>, >, <, and |
+void doiocommand(string com, int &status, string connectors, int &comnumb) {
+	int needed_con = 0;
+	int piping_count = 0;
+	while (connectors[comnumb + needed_con] != '&' && connectors[comnumb + needed_con] 
+		!= 'o' && connectors[comnumb + needed_con] != ';') {
+		if (connectors[comnumb + needed_con] == '|')
+			piping_count++;
+		needed_con++;
+	}
+	
+	//if (piping != 0) {
+		//if <, inputfile to something else
+		//if > or >> at end
+	//}
+	//else {
+		//if <
+		//if >> or >>
+	//}
+}
+
+
+
 int main() {
 	bool failed = false;
 	string input;
@@ -88,22 +111,13 @@ int main() {
 				connectors += "|";
 			//add checks for <, >, and >>
 		}
-		char_separator<char> delim("&|;");//seperate for >, >>, and < also
+		char_separator<char> delim("&|;");
 		tokenizer< char_separator<char> > mytok(input, delim);
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
 				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
-			//call fuct to do command w/ input redirecton, <, >>, >
-			//outfile/infile = *(it + 1)	
-				//if connectors[conumb] == 't' && it + 1 != mytok.end()
-					//dooutcommand(cur_command, outfile, status, 2)
-				//if connectors[conumb] == '>' && it + 1 != mytok.end()
-					//dooutcommand(cur_command, outfile, status, 1)
-				//if connectors[conumb] == '<' && it + 1 != mytok.end()
-					//doincommand(cur_command, infile, status)
-			//if |, loop till not |
-			//call fuct do command with pipes, pass in all connected piped comands
-				//dopipecommand(cur_commands, status, connectors, comnumb)
+			//call fuct to do command w/ input redirecton, pass in connectors and comnumb
+				//doiocommand(cur_com, status, connectors, comnumb)
 			//else, just:
 			docommand(cur_com, status);
 			//connectors checked here
