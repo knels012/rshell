@@ -160,10 +160,14 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 	int fd[2], fd2[2];
 	for (int i = 0; i <= piping_count; i++) {
 		if (i < piping_count) {
-			if (i % 2 == 0)
+			if (i % 2 == 0){
+				//int fd[2];
 				pipe(fd);
-			else
+			}
+			else {
+				//int fd2[2];
 				pipe(fd2);
+			}
 		}
 		cout << "test1 " << i << endl;
 		pids.push_back(fork());
@@ -181,15 +185,16 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 				exit(0);
 			}
 			if (i + 1 <= piping_count) {
+				//1 = stdout
 				close(1);
-				if (i % 2 == 0) 
+				if (i % 2 == 1) 
 					dup(fd2[1]);
 				else
 					dup(fd[1]);
 			}
 			if (i != 0) {
 				close(0);
-				if (i % 2 == 1) 
+				if (i % 2 == 0) 
 					dup(fd2[0]);
 				else
 					dup(fd[0]);
@@ -215,8 +220,24 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 				close(fd[1]);
 			}
 		}
-	cout << "test4 "<< i << endl;	
-	}//*/
+		if (i == piping_count && pids[i] != 0) {
+			cout << "should only be here once" <<  endl;
+			for (int a = 0; a <= piping_count; a++) {
+				cout << "waiting: " << waitcount << endl;
+				int int_wait;
+				if (wait(&int_wait) == -1) {
+					perror("wait");
+					exit(-1);
+				}
+				//cout << "waiting: " << waitcount - 1 << endl;
+				//wait(&int_wait);
+				//cout << "waiting: " << waitcount - 2 << endl;
+				//wait(&int_wait);
+			}
+		}
+		cout << "test4 "<< i << endl;	
+	}/*
+	cout << "should only be here once" <<  endl;
 	for (int i = 0; i <= piping_count; i++) {
 		cout << "waiting: " << waitcount << endl;
 		int int_wait;
@@ -224,7 +245,7 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 			perror("wait");
 			exit(-1);
 		}
-	}
+	}*/
 
 	if (connectors[connectors.size() - 1] == '>' || connectors[connectors.size() - 1] == 'a')
 		cout << "> or >> registered" << endl;
