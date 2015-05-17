@@ -85,6 +85,7 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 		cout << "< registered" << endl;
 		cur_string += 2;
 	}
+	/*
 	if (piping_count > 0) {
 		//for (
 			int fd[2];
@@ -122,7 +123,7 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 				}
 				//child
 				else if (spoon == 0) {
-					cout << "cur srting: " << com[cur_string + 1] << endl;
+					cout << "cur string: " << com[cur_string + 1] << endl;
 					char* argv[101];
 					int a = parseline(com[cur_string + 1], argv);
 					argv[a] = NULL;
@@ -132,11 +133,11 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 					}
 					close(0);
 					dup(fd[0]);
+					cout << "here!" << endl;
 					if (execvp(argv[0], argv) == -1) {
 						perror("execvp");
 						exit(-1);        
 					}
-					cout << "shouldn't reach" << endl;
 				}
 				else {
 					close(fd[1]);
@@ -149,12 +150,82 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 							perror("wait");
 							exit(-1);
 						}
-						cout << "waiting: " << waitcount << endl;
-					}
-				}
+						//cout << "waiting: " << waitcount << endl;
+					}*/
+	//			}
+	//		}
+	//}
+	///*
+	vector<int> pids;//[piping_count];
+	int fd[2], fd2[2];
+	for (int i = 0; i <= piping_count; i++) {
+		if (i < piping_count) {
+			if (i % 2 == 0)
+				pipe(fd);
+			else
+				pipe(fd2);
+		}
+		cout << "test1 " << i << endl;
+		pids.push_back(fork());
+		if (pids[i] < 0) {
+			perror("fork");
+ 			exit(-1);
+		}
+		//if child process
+		else if (pids[i] == 0) {
+			cout << "test2 "<< i  << endl;
+			char* argv[101];
+			int a = parseline(com[cur_string + i], argv);
+			argv[a] = NULL;
+			if (strcmp(argv[0], "exit") == 0) {
+				exit(0);
 			}
+			if (i + 1 <= piping_count) {
+				close(1);
+				if (i % 2 == 0) 
+					dup(fd2[1]);
+				else
+					dup(fd[1]);
+			}
+			if (i != 0) {
+				close(0);
+				if (i % 2 == 1) 
+					dup(fd2[0]);
+				else
+					dup(fd[0]);
+			}
+			cout << "do command: " << argv[0] << endl;
+			cout << "i is " << i << endl;
+			cout << "fd is " << fd[0] << " and " << fd[1] << endl;
+			cout << "fd2 is " << fd2[0] << " and " << fd2[1] << endl;
+			if (execvp(argv[0], argv) == -1) {
+				perror("execvp");
+				exit(-1);        
+			}
+		}
+		//if parent process and not first loop
+		else if (i != 0) {
+			cout << "test3 "<< i  << endl;
+			if (i % 2 == 0) {
+				close(fd2[1]);
+				close(fd2[0]);
+			}
+			else {
+				close(fd[0]);
+				close(fd[1]);
+			}
+		}
+	cout << "test4 "<< i << endl;	
+	}//*/
+	for (int i = 0; i <= piping_count; i++) {
+		cout << "waiting: " << waitcount << endl;
+		int int_wait;
+		if (wait(&int_wait) == -1) {
+			perror("wait");
+			exit(-1);
+		}
 	}
-	
+
 	if (connectors[connectors.size() - 1] == '>' || connectors[connectors.size() - 1] == 'a')
 		cout << "> or >> registered" << endl;
 
@@ -169,7 +240,6 @@ void doiocommand(vector<string> &com, string &connectors) { //int &status, strin
 		//if >> or >>
 	//}
 }
-
 
 
 int main() {
