@@ -10,9 +10,19 @@
 #include <stdlib.h>
 #include <pwd.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 using namespace std;
 using namespace boost;
+
+void chihandler(int s) {
+	puts("child registered ^C");
+}
+
+void parhandler(int s) {
+	puts("parent caught");
+	//cout << "regestered ^C" << flush;
+}
 
 	//for parsing a single command
 int parseline(string com, char* argv[]) {
@@ -160,6 +170,14 @@ void docommand(string com, int &status) {
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
+		struct sigaction ch_act;
+		ch_act.sa_handler = chihandler;
+
+		if (sigaction(SIGINT , &ch_act, NULL) < 0) {
+			perror ("sigaction");
+			exit(-1);
+		}
+
 		status = execvp(argv[0], argv);
 		//this will only be reached if error in running command
 		if (status == -1) {
@@ -169,15 +187,28 @@ void docommand(string com, int &status) {
 	}
 	else if (ifork < 0) {
 		perror("fork");
-		exit(status);
+		status = -1;
+		return;
 	}
 	else {
-		if(wait(&status) == -1)
+		if(wait(&status) == -1) {
 			perror("wait");
+			status = -1;
+			return;
+		}
 	}
 }
 
 int main() {
+	struct sigaction new_act;
+	new_act.sa_handler = parhandler;
+
+	//sigaction to register ^C
+	if (sigaction(SIGINT , &new_act, NULL) < 0) {
+		perror ("sigaction");
+		return 1;
+	}
+
 	bool failed = false;
 	string input;
 	string cur_com;
@@ -189,8 +220,14 @@ int main() {
 	if (-1 == gethostname(mach, 50))
 		perror("gethostname");
 	int status = 0, comnumb = 0;
+	char* currdir = NULL;
+	const char pwd[] = "PWD";
 	while (1) {
-		cout << pws->pw_name << "@" << mach << "$ ";
+		currdir = getenv(pwd);	
+		cout << pws->pw_name << "@" << mach;
+		if (currdir != NULL)
+			cout << ":" << currdir;
+		cout << " $ "; // << flush;
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
