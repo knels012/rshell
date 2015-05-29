@@ -31,14 +31,18 @@ int parseline(string com, char* argv[]) {
 	return s;
 }
 	//for executing the cd command
-void docd(string com, int &status) {
-	char* argv[101];
-	int a = parseline(com, argv);
-	argv[a] = NULL;
+void docd(char* argv[], int a, int &status) {
+	//char* argv[101];
+	//int a = parseline(com, argv);
+	//argv[a] = NULL;
 	char* olddir = NULL;
 	char* newdir = NULL;
 	const char pwd[] = "PWD";
 	const char oldpwd[] = "OLDPWD";
+
+	//for (int i = 0; argv[i] != NULL; i++) {
+	//	cout << "argv[" << i << "]: " << argv[i] << endl;
+	//}
 
 	if (a > 2) {
 		cout << "too many commands after cd, all but the first will be ignored" << endl;
@@ -52,14 +56,14 @@ void docd(string com, int &status) {
 			status = -1;
 			return;
 		}
-		cout << "HOME is " << *home << endl; 
+		//cout << "HOME is " << *home << endl; 
 		olddir = getenv(pwd);
 		if (olddir == NULL) {
 		//	perror("getenv");
 			status = -1;
 			return;
 		}
-		cout << "pwd is " << *olddir << endl;
+		//cout << "pwd is " << *olddir << endl;
 		status = setenv(oldpwd, olddir, 1);
 		if (status == -1) {
 			perror("setenv");
@@ -75,10 +79,34 @@ void docd(string com, int &status) {
 			perror("chdir");
 			return;
 		}
-		cout << "worked?" << endl;
 	}
 	else if (strcmp(argv[1], "-") == 0) {
 		cout << "cd -" << endl;
+		newdir = getenv(oldpwd);
+		if (newdir == NULL) {
+			status = -1;
+			return;
+		}
+		olddir = getenv(pwd);
+		if (olddir == NULL) {
+			status = -1;
+			return;
+		}
+		status = setenv(oldpwd, olddir, 1);
+		if (status == -1) {
+			perror("setenv");
+			return;
+		}
+		status = setenv(pwd, newdir, 1);
+		if (status == -1) {
+			perror("setenv");
+			return;
+		}
+		status = chdir(newdir);
+		if (status == -1) {
+			perror("chdir");
+			return;
+		}
 	}
 	else {
 		struct stat st;
@@ -89,6 +117,28 @@ void docd(string com, int &status) {
 		}
 		if (S_ISDIR(st.st_mode)) {
 			cout << "cd valid_path" << endl;
+			newdir = argv[1];
+			olddir = getenv(pwd);
+			if (olddir == NULL) {
+				status = -1;
+				return;
+			}
+			
+			status = setenv(oldpwd, olddir, 1);
+			if (status == -1) {
+				perror("setenv");
+				return;
+			}
+			status = setenv(pwd, newdir, 1);
+			if (status == -1) {
+				perror("setenv");
+				return;
+			}
+			status = chdir(newdir);
+			if (status == -1) {
+				perror("chdir");
+				return;
+			}
 		}
 		//else
 		//	cout << "Not a valid directory" << endl;
@@ -102,6 +152,10 @@ void docommand(string com, int &status) {
 	argv[a] = NULL;
 	if (strcmp(argv[0], "exit") == 0) {
 		exit(0);
+	}
+	if (strcmp(argv[0], "cd") == 0) {
+		docd(argv, a, status);
+		return;
 	}
 	int ifork = fork();
 	//child fuction
@@ -161,12 +215,12 @@ int main() {
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
 				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
-			if (cur_com[0] == 'c' && cur_com[1] == 'd') {
-				docd(cur_com, status);
-			}
-			else {
-				docommand(cur_com, status);
-			}
+			//if (cur_com[0] == 'c' && cur_com[1] == 'd') {
+			//	docd(cur_com, status);
+			//}
+			//else {
+			docommand(cur_com, status);
+			//}
 			//connectors checked here
 			if (status != 0 && connectors[comnumb] == '&') {
 				failed = true;
