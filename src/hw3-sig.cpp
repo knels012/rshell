@@ -35,12 +35,47 @@ void docd(string com, int &status) {
 	char* argv[101];
 	int a = parseline(com, argv);
 	argv[a] = NULL;
+	char* olddir = NULL;
+	char* newdir = NULL;
+	const char pwd[] = "PWD";
+	const char oldpwd[] = "OLDPWD";
 
 	if (a > 2) {
 		cout << "too many commands after cd, all but the first will be ignored" << endl;
 	}
 	if (a == 1) {
 		cout << "cd" << endl;
+		const char home[] = "HOME";
+		newdir = getenv(home);
+		if (newdir == NULL) {
+			perror("getenv");
+			status = -1;
+			return;
+		}
+		cout << "HOME is " << *home << endl; 
+		olddir = getenv(pwd);
+		if (olddir == NULL) {
+		//	perror("getenv");
+			status = -1;
+			return;
+		}
+		cout << "pwd is " << *olddir << endl;
+		status = setenv(oldpwd, olddir, 1);
+		if (status == -1) {
+			perror("setenv");
+			return;
+		}
+		status = setenv(pwd, newdir, 1);
+		if (status == -1) {
+			perror("setenv");
+			return;
+		}
+		status = chdir(newdir);
+		if (status == -1) {
+			perror("chdir");
+			return;
+		}
+		cout << "worked?" << endl;
 	}
 	else if (strcmp(argv[1], "-") == 0) {
 		cout << "cd -" << endl;
