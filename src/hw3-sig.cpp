@@ -15,13 +15,14 @@
 using namespace std;
 using namespace boost;
 
-void chihandler(int s) {
-	puts("child registered ^C");
-}
+//void chihandler(int s) {
+//	cout << "child registered ^C" << endl;;
+//}
 
 void parhandler(int s) {
-	puts("parent caught");
-	cout << flush;
+	cout << endl;
+	//puts("parent caught");
+//	cout << flush;
 	//cout << "regestered ^C" << flush;
 }
 
@@ -171,13 +172,15 @@ void docommand(string com, int &status) {
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		struct sigaction cact;
+		/*
+ 		struct sigaction cact;
 		cact.sa_handler = chihandler;
 
-		if (sigaction(SIGINT , &cact, NULL) < 0) {
+		if (sigaction(SIGINT, &cact, NULL) < 0) {
 			perror ("sigaction");
 			exit(-1);
 		}
+		*/
 
 		status = execvp(argv[0], argv);
 		//this will only be reached if error in running command
@@ -203,7 +206,9 @@ void docommand(string com, int &status) {
 int main() {
 	struct sigaction pact;//, cact;
 	pact.sa_handler = parhandler;
-
+	sigemptyset(&pact.sa_mask);
+	pact.sa_flags = SA_RESTART;
+	
 	//sigaction to register ^C
 	if (sigaction(SIGINT , &pact, NULL) < 0) {
 		perror ("sigaction");
@@ -228,7 +233,7 @@ int main() {
 		cout << pws->pw_name << "@" << mach;
 		if (currdir != NULL)
 			cout << ":" << currdir;
-		cout << " $ " << flush;
+		cout << " $ "; // << flush;
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
