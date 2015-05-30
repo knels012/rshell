@@ -203,6 +203,31 @@ void docommand(string com, int &status) {
 	}
 }
 
+void outputdir(char* curdir) {
+	char* homedir = NULL;
+	const char home[] = "HOME";
+	homedir = getenv(home);
+	if (homedir == NULL)
+		return;
+	string curr = curdir;
+	string ho = homedir;
+	//bool match = false;
+	if (ho.size() > curr.size()) {
+		cout << ":" << curdir;
+		return;
+	}
+	string sub = curr.substr(0, ho.size());
+	//cout << ho << endl;
+	//cout << sub << endl;
+	//cout << curr << endl;
+	if (sub != ho) {
+		cout << ":" << curdir;
+		return;
+	}
+	curr = "~" + curr.substr(ho.size());
+	cout << ":" << curr;
+}
+
 int main() {
 	struct sigaction pact;//, cact;
 	pact.sa_handler = parhandler;
@@ -232,7 +257,8 @@ int main() {
 		currdir = getenv(pwd);	
 		cout << pws->pw_name << "@" << mach;
 		if (currdir != NULL)
-			cout << ":" << currdir;
+			outputdir(currdir);
+		//	cout << ":" << currdir;
 		cout << " $ "; // << flush;
 		getline(cin,input);
 		string connectors = "";
