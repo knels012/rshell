@@ -39,9 +39,13 @@ and thus `ls` won't be executed, then `pwd` will also not be executed.
 
 ##cd
 cd is a command built into rshell. This command comes in three formats,
-1. `cd <PATH>` will change the current working directory to `<PATH>`
-2. `cd` will change the current working directory to the user's home directory
-3. `cd -` will change the current working directory to the previous working directory
+
+1. `cd <PATH>` will change the current working directory to `<PATH>`.
+
+2. `cd` will change the current working directory to the user's home directory.
+
+3. `cd -` will change the current working directory to the previous working directory.
+
 If more than one flag is passed in after cd, an error messgae will be printed.
 
 ##CONTROL-C
@@ -50,7 +54,6 @@ rshell continues as if you hadn't even pressed control-c.
 If currently running a program through rshell, the program will recieve the signal, with the program quitting.
 
 ##Bugs/Limitations/Issues
----
 1. If the user input has only tabs or spaces before a `|` or a `&` at the beginning, before any commands, it causes a segmentation fault and quits the program.
 examples:
 ```

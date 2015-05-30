@@ -15,15 +15,8 @@
 using namespace std;
 using namespace boost;
 
-//void chihandler(int s) {
-//	cout << "child registered ^C" << endl;;
-//}
-
+	//to catch ^C
 void parhandler(int s) {
-	cout << endl;
-	//puts("parent caught");
-//	cout << flush;
-	//cout << "regestered ^C" << flush;
 }
 
 	//for parsing a single command
@@ -44,23 +37,18 @@ int parseline(string com, char* argv[]) {
 }
 	//for executing the cd command
 void docd(char* argv[], int a, int &status) {
-	//char* argv[101];
-	//int a = parseline(com, argv);
-	//argv[a] = NULL;
 	char* olddir = NULL;
 	char* newdir = NULL;
 	const char pwd[] = "PWD";
 	const char oldpwd[] = "OLDPWD";
 
-	//for (int i = 0; argv[i] != NULL; i++) {
-	//	cout << "argv[" << i << "]: " << argv[i] << endl;
-	//}
-
 	if (a > 2) {
-		cout << "too many commands after cd, all but the first will be ignored" << endl;
+		cout << "error: too many commands" << endl;
+		status = -1;
+		return;
 	}
+	//plain cd command
 	if (a == 1) {
-		cout << "cd" << endl;
 		const char home[] = "HOME";
 		newdir = getenv(home);
 		if (newdir == NULL) {
@@ -68,14 +56,11 @@ void docd(char* argv[], int a, int &status) {
 			status = -1;
 			return;
 		}
-		//cout << "HOME is " << *home << endl; 
 		olddir = getenv(pwd);
 		if (olddir == NULL) {
-		//	perror("getenv");
 			status = -1;
 			return;
 		}
-		//cout << "pwd is " << *olddir << endl;
 		status = setenv(oldpwd, olddir, 1);
 		if (status == -1) {
 			perror("setenv");
@@ -92,8 +77,8 @@ void docd(char* argv[], int a, int &status) {
 			return;
 		}
 	}
+	//cd - command
 	else if (strcmp(argv[1], "-") == 0) {
-		cout << "cd -" << endl;
 		newdir = getenv(oldpwd);
 		if (newdir == NULL) {
 			status = -1;
@@ -120,6 +105,7 @@ void docd(char* argv[], int a, int &status) {
 			return;
 		}
 	}
+	//cd with flag not -
 	else {
 		struct stat st;
 		status  = lstat(argv[1], &st);
@@ -127,8 +113,8 @@ void docd(char* argv[], int a, int &status) {
 			perror("lstat");
 			return;
 		}
+		//if pathname is a valid directory, change directory
 		if (S_ISDIR(st.st_mode)) {
-			cout << "cd valid_path" << endl;
 			newdir = argv[1];
 			olddir = getenv(pwd);
 			if (olddir == NULL) {
@@ -152,8 +138,6 @@ void docd(char* argv[], int a, int &status) {
 				return;
 			}
 		}
-		//else
-		//	cout << "Not a valid directory" << endl;
 	}
 }
 
@@ -165,23 +149,18 @@ void docommand(string com, int &status) {
 	if (strcmp(argv[0], "exit") == 0) {
 		exit(0);
 	}
+	//check if cd command
 	if (strcmp(argv[0], "cd") == 0) {
 		docd(argv, a, status);
+		//delete allcoated memory
+		for (int i = a; i > -1; i--) {
+			delete[] argv[i];
+		}
 		return;
 	}
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		/*
- 		struct sigaction cact;
-		cact.sa_handler = chihandler;
-
-		if (sigaction(SIGINT, &cact, NULL) < 0) {
-			perror ("sigaction");
-			exit(-1);
-		}
-		*/
-
 		status = execvp(argv[0], argv);
 		//this will only be reached if error in running command
 		if (status == -1) {
@@ -201,8 +180,13 @@ void docommand(string com, int &status) {
 			return;
 		}
 	}
+	//delete allocated memory
+	for (int i = a; i > -1; i--) {
+		delete[] argv[i];
+	}
 }
 
+//output the directory part of the prompt
 void outputdir(char* curdir) {
 	char* homedir = NULL;
 	const char home[] = "HOME";
@@ -211,15 +195,11 @@ void outputdir(char* curdir) {
 		return;
 	string curr = curdir;
 	string ho = homedir;
-	//bool match = false;
 	if (ho.size() > curr.size()) {
 		cout << ":" << curdir;
 		return;
 	}
 	string sub = curr.substr(0, ho.size());
-	//cout << ho << endl;
-	//cout << sub << endl;
-	//cout << curr << endl;
 	if (sub != ho) {
 		cout << ":" << curdir;
 		return;
@@ -229,7 +209,7 @@ void outputdir(char* curdir) {
 }
 
 int main() {
-	struct sigaction pact;//, cact;
+	struct sigaction pact;
 	pact.sa_handler = parhandler;
 	sigemptyset(&pact.sa_mask);
 	pact.sa_flags = SA_RESTART;
@@ -243,7 +223,6 @@ int main() {
 	bool failed = false;
 	string input;
 	string cur_com;
-	//string comments;
 	struct passwd *pws = getpwuid(geteuid());
 	if (!pws)
 		perror("getlogin");
@@ -254,12 +233,13 @@ int main() {
 	char* currdir = NULL;
 	const char pwd[] = "PWD";
 	while (1) {
+		//output prompt
 		currdir = getenv(pwd);	
 		cout << pws->pw_name << "@" << mach;
 		if (currdir != NULL)
 			outputdir(currdir);
-		//	cout << ":" << currdir;
-		cout << " $ "; // << flush;
+		cout << " $ ";
+		//get input
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
@@ -284,12 +264,7 @@ int main() {
 		for (tokenizer< char_separator<char> >::iterator it = mytok.begin();
 				it != mytok.end() && !failed; ++it) {
 			cur_com = *it;
-			//if (cur_com[0] == 'c' && cur_com[1] == 'd') {
-			//	docd(cur_com, status);
-			//}
-			//else {
 			docommand(cur_com, status);
-			//}
 			//connectors checked here
 			if (status != 0 && connectors[comnumb] == '&') {
 				failed = true;
