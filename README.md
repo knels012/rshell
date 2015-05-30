@@ -1,7 +1,12 @@
 # Basic Command Shell
 
 When run, command prompts are printed, and commands are read in from the user one line at a time and executed.
-This file first outlines how to run the program, then gives details on how it works, then give the bugs and problems with this programm.
+This file first outlines how to run the program,
+gives details on how it works,
+explains how the cd command is used,
+what the control-c signal does,
+and then give the bugs and problems with this programm.
+
 
 ## Installation
 The following is the instructions for running the command shell
@@ -32,6 +37,18 @@ true || ls && pwd
 will only execute the first command (here `true`), but because it suceeded, 
 and thus `ls` won't be executed, then `pwd` will also not be executed.
 
+##cd
+cd is a command built into rshell. This command comes in three formats,
+1. `cd <PATH>` will change the current working directory to `<PATH>`
+2. `cd` will change the current working directory to the user's home directory
+3. `cd -` will change the current working directory to the previous working directory
+If more than one flag is passed in after cd, an error messgae will be printed.
+
+##CONTROL-C
+When this is pressed, rshell doesn't quit, SIGINT being caught.
+rshell continues as if you hadn't even pressed control-c.
+If currently running a program through rshell, the program will recieve the signal, with the program quitting.
+
 ##Bugs/Limitations/Issues
 ---
 1. If the user input has only tabs or spaces before a `|` or a `&` at the beginning, before any commands, it causes a segmentation fault and quits the program.
@@ -42,3 +59,5 @@ examples:
 ```
 
 2. The program will only hold up to 99 arguments for every command.
+
+3. Using cd <PATH> means the current directory shown by the prompt will be exactly what you type in, even paths such as `..` or a folder name, rather than the current directory path from HOME.
