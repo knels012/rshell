@@ -21,6 +21,7 @@ void chihandler(int s) {
 
 void parhandler(int s) {
 	puts("parent caught");
+	cout << flush;
 	//cout << "regestered ^C" << flush;
 }
 
@@ -170,10 +171,10 @@ void docommand(string com, int &status) {
 	int ifork = fork();
 	//child fuction
 	if (ifork == 0) {
-		struct sigaction ch_act;
-		ch_act.sa_handler = chihandler;
+		struct sigaction cact;
+		cact.sa_handler = chihandler;
 
-		if (sigaction(SIGINT , &ch_act, NULL) < 0) {
+		if (sigaction(SIGINT , &cact, NULL) < 0) {
 			perror ("sigaction");
 			exit(-1);
 		}
@@ -200,11 +201,11 @@ void docommand(string com, int &status) {
 }
 
 int main() {
-	struct sigaction new_act;
-	new_act.sa_handler = parhandler;
+	struct sigaction pact;//, cact;
+	pact.sa_handler = parhandler;
 
 	//sigaction to register ^C
-	if (sigaction(SIGINT , &new_act, NULL) < 0) {
+	if (sigaction(SIGINT , &pact, NULL) < 0) {
 		perror ("sigaction");
 		return 1;
 	}
@@ -227,7 +228,7 @@ int main() {
 		cout << pws->pw_name << "@" << mach;
 		if (currdir != NULL)
 			cout << ":" << currdir;
-		cout << " $ "; // << flush;
+		cout << " $ " << flush;
 		getline(cin,input);
 		string connectors = "";
 		unsigned i = 0;
