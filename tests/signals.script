@@ -1,0 +1,46 @@
+Script started on Fri 29 May 2015 08:24:59 PM PDT
+~
+knels012@hammer $ cd CS100/HW0/rshell
+~/CS100/HW0/rshell
+knels012@hammer $ make
+mkdir bin;
+g++ -Wall -Werror -ansi -pedantic src/hw3-sig.cpp  -o rshell &&  mv rshell bin
+~/CS100/HW0/rshell
+knels012@hammer $ bin/rshell
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ pwd
+/home/csmajs/knels012/CS100/HW0/rshell
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #cd works on it's own
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ cd
+knels012@hammer.cs.ucr.edu:~ $ pwd
+/home/csmajs/knels012
+knels012@hammer.cs.ucr.edu:~ $ #cd - works
+knels012@hammer.cs.ucr.edu:~ $ cd -
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ cd -
+knels012@hammer.cs.ucr.edu:~ $ cd -
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ pwd
+/home/csmajs/knels012/CS100/HW0/rshell
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #cd <PATH> works
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ cd src
+knels012@hammer.cs.ucr.edu:src $ pwd
+/home/csmajs/knels012/CS100/HW0/rshell/src
+knels012@hammer.cs.ucr.edu:src $ cd -
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #cd with wrong number of arguments outputs error message
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ cd - src
+too many commands
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #cd with incorrect path name outputs error
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ cd not/a/realpath
+lstat: No such file or directory
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #control-c doesn’t exit rshell
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ ^C^C
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ #a.out is a program with an infinite loop that prints x’s then waits one second every loop
+knels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ a.out
+x
+x
+x
+x
+^Cknels012@hammer.cs.ucr.edu:~/CS100/HW0/rshell $ ^Cexit
+~/CS100/HW0/rshell
+knels012@hammer $ exit
+exit
+
+Script done on Fri 29 May 2015 08:28:05 PM PDT
